@@ -1,9 +1,15 @@
 package com.holo2k.giuakynhom15.model;
 
-public class Kho {
-    private String maKho, tenKho;
+import java.io.Serializable;
 
-    public Kho(String maKho, String tenKho) {
+public class Kho implements Serializable {
+    private int  maKho;
+    private String tenKho;
+
+    public Kho() {
+    }
+
+    public Kho(int maKho, String tenKho) {
         this.maKho = maKho;
         this.tenKho = tenKho;
     }
@@ -12,11 +18,11 @@ public class Kho {
         this.tenKho = tenKho;
     }
 
-    public String getMaKho() {
+    public int getMaKho() {
         return maKho;
     }
 
-    public void setMaKho(String maKho) {
+    public void setMaKho(int maKho) {
         this.maKho = maKho;
     }
 

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.holo2k.giuakynhom15.database.DBVatTu;
+
 public class MainActivity extends AppCompatActivity {
     Button btnKho, btnVatTu, btnPhieuNhap, btnTimKiem, btnThongKe, btnThoat;
 
@@ -15,11 +17,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DBVatTu db = new DBVatTu(MainActivity.this);
         setControl();
         setEvent();
     }
 
     private void setEvent() {
+        //tạo database
+        DBVatTu dbVatTu = new DBVatTu(MainActivity.this);
         //quản lý kho
         btnKho.setOnClickListener(new View.OnClickListener() {
             @Override

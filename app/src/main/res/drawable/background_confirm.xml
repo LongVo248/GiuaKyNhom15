@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape>
+            <!--Màu nền button-->
+            <solid android:color="#FFFFFF"></solid>
+
+            <!--Tạo viền cho button-->
+            <stroke android:width="7dp" android:color="#2DA4FF"></stroke>
+
+            <!--Độ bo tròn 4 góc-->
+            <corners android:radius="15dp"></corners>
+        </shape>
+    </item>
+</selector>

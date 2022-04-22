@@ -7,20 +7,64 @@
     android:orientation="vertical"
     tools:context=".ActivityKho">
 
-    <androidx.appcompat.widget.Toolbar
-        app:title="@string/dskho"
-        android:id="@+id/toolbarKho"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
-    </androidx.appcompat.widget.Toolbar>
-    <TableLayout
-        android:id="@+id/tableKho"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TableRow
+
+        <ImageView
+            android:id="@+id/imgThoatKho"
+            android:layout_width="26dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_backward" />
+
+        <TextView
+            android:id="@+id/tvKho"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
+            android:text="DANH SÁCH KHO"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="634dp">
+
+        <ListView
+            android:id="@+id/lvDSKho"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/btnThemKho"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="100dp"
+            android:background="@drawable/background_button"
+            android:text="Thêm"/>
 
-            />
-    </TableLayout>
+        <Button
+            android:id="@+id/btnThongKeKho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/background_button"
+            android:text="Thống kê" />
+    </LinearLayout>
+
+
 </LinearLayout>
