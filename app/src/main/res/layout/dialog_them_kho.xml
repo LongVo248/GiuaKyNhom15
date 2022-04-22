@@ -12,9 +12,10 @@
         android:id="@+id/imgThoatThemKho"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:srcCompat="@drawable/ic_x_thoat" />
+        app:srcCompat="@drawable/ic_x_thoat"
+        android:contentDescription="@string/todo" />
 
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +23,7 @@
         android:gravity="center"
         android:text="@string/dialog_them_kho"
         android:textColor="@color/black"
-        android:textSize="25dp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,19 +39,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="90dp"
-                android:layout_marginRight="14dp"
-                android:text="Tên kho: "
+                android:layout_marginStart="90dp"
+                android:layout_marginEnd="14dp"
+                android:text="@string/ten_kho_dialog"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/editThemTenKho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="20sp"
+                android:importantForAutofill="no"/>
 
         </LinearLayout>
 
@@ -59,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button"
-            android:text="Thêm" />
+            android:text="@string/them_kho_dialog" />
     </LinearLayout>
 
 

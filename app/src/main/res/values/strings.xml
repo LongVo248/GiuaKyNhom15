@@ -9,8 +9,12 @@
     <string name="thong_ke">Thống kê vật tư</string>
     <string name="thoat">Thoát</string>
     <string name="dialog_thoat">Bạn có muốn thoát ứng dụng ?</string>
-    <string name="dialog_confirm">Bạn có chắc chắn xoá ?</string>
+    <string name="dialog_confirm_xoa">Bạn có chắc chắn xoá ?</string>
+    <string name="dialog_confirm_sua">Bạn có chắc chắn sửa ?</string>
     <string name="dialog_them_kho">Thêm kho</string>
     <string name="co">Có</string>
     <string name="khong">Không</string>
+    <string name="todo">TODO</string>
+    <string name="ten_kho_dialog">Tên kho:</string>
+    <string name="them_kho_dialog">Thêm</string>
 </resources>

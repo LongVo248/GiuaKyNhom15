@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     //Hiển thị cửa sổ dialog Thoát
     private void DialogExit() {
         Dialog dialog= new Dialog(this);
-        dialog.setContentView(R.layout.dialogthoat);
+        dialog.setContentView(R.layout.dialog_thoat);
 
         //tắt click ngoài là thoát
         dialog.setCanceledOnTouchOutside(false);

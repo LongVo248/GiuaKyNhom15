@@ -14,6 +14,7 @@ import com.holo2k.giuakynhom15.model.Kho;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class DBVatTu extends SQLiteOpenHelper {
     //Tên database
@@ -91,15 +92,17 @@ public class DBVatTu extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean CapNhatKho(Kho kho, String id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(MAKHO, kho.getMaKho());
-        values.put(TENKHO, kho.getTenKho());
-
-        db.update(KHO, values, MAKHO + "=" + id, null);
-        return true;
+    public boolean capNhatKho(Kho kho) {
+        if (!checkMaKhoTrongPhieuNhap(kho.getMaKho())) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(MAKHO, kho.getMaKho());
+            values.put(TENKHO, kho.getTenKho());
+            db.update(KHO, values, MAKHO + "=" + String.valueOf(kho.getMaKho()), null);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<Kho> getAllKho() {
@@ -120,26 +123,49 @@ public class DBVatTu extends SQLiteOpenHelper {
         return khoArrayList;
     }
 
-    public boolean checkMaKhoTrongPhieuNhap(int maKho) {
-        String getAllKho = "SELECT * FROM " + PHIEUNHAP + " WHERE MAKHO = " + "'" + String.valueOf(maKho) + "'";
+    public ArrayList<Kho> searchKho(String data) {
+        ArrayList<Kho> khoArrayList = new ArrayList<>();
+        String getAllKho = new StringBuilder().append("SELECT * FROM ").append(KHO).append(" WHERE ").append(TENKHO)
+                .append(" LIKE '%").append(data).append("%'").toString();
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery(getAllKho, null);
-            return true;
-        } catch (Exception e){
-            return false;
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                int maKho;
+                String tenKho;
+                maKho = cursor.getInt(0);
+                tenKho = cursor.getString(1);
+                Kho kho = new Kho(maKho, tenKho);
+                khoArrayList.add(kho);
+                cursor.moveToNext();
+            }
+            return khoArrayList;
+        } catch (NullPointerException e) {
+            Logger.getLogger(String.valueOf(e));
         }
-
+        return getAllKho();
     }
 
-    public boolean deleteKho(Integer id) {
+    public boolean checkMaKhoTrongPhieuNhap(int maKho) {
+        //true la tim thay
+        //false khong tim thay
+
+        String getAllKho = "SELECT * FROM " + PHIEUNHAP + " WHERE MAKHO = " + String.valueOf(maKho);
+        System.out.println(getAllKho);
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getAllKho, null);
+        return cursor.getCount() == 0 ? false : true;
+    }
+
+    public boolean deleteKho(int id) {
         //chú ý : getWritableDatabase là cả đọc và ghi
-        if (true) {
+        if (!checkMaKhoTrongPhieuNhap(id)) {
             SQLiteDatabase db = this.getWritableDatabase();
-                db.delete(KHO, MAKHO + " = " +"'" + id.toString() + "'", null);
+            db.delete(KHO, MAKHO + " = " + "'" + String.valueOf(id) + "'", null);
             return true;
         } else {
-            return true;
+            return false;
         }
     }
 }

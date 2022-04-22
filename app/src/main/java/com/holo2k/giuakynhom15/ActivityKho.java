@@ -3,8 +3,12 @@ package com.holo2k.giuakynhom15;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +32,7 @@ public class ActivityKho extends AppCompatActivity {
     ArrayList<Kho> khoArrayList = new ArrayList<>();
     KhoAdapter khoAdapter;
     DBVatTu dbKho;
+    EditText editSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,22 @@ public class ActivityKho extends AppCompatActivity {
 
     private void setEvents() {
         showDB();
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                showResultSearch(editSearch.getText().toString());
+            }
+        });
         imgThoatKho.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,10 +82,16 @@ public class ActivityKho extends AppCompatActivity {
         });
     }
 
+    public void showResultSearch(String data) {
+        dbKho = new DBVatTu(ActivityKho.this);
+        khoArrayList = dbKho.searchKho(data);
+        khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
+        lvDSKho.setAdapter(khoAdapter);
+    }
     public void showDB() {
         dbKho = new DBVatTu(ActivityKho.this);
         khoArrayList = dbKho.getAllKho();
-        khoAdapter = new KhoAdapter(this, R.layout.kho, khoArrayList);
+        khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
         lvDSKho.setAdapter(khoAdapter);
     }
 
@@ -73,11 +100,13 @@ public class ActivityKho extends AppCompatActivity {
         btnThemKho = findViewById(R.id.btnThemKho);
         btnThongKeKho = findViewById(R.id.btnThongKeKho);
         imgThoatKho = findViewById(R.id.imgThoatKho);
+        editSearch = findViewById(R.id.editSearch);
+
     }
 
     private void dialogThemKho() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialogthemkho);
+        dialog.setContentView(R.layout.dialog_them_kho);
 
         dialog.show();
         //tắt click ngoài là thoát'
@@ -94,6 +123,9 @@ public class ActivityKho extends AppCompatActivity {
                 kho.setTenKho(editThemTenKho.getText().toString());
                 dbKho.themKho(kho);
                 dialog.cancel();
+                getWindow().setSoftInputMode(
+                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                );
                 Toast.makeText(ActivityKho.this, "Thêm kho thành công", Toast.LENGTH_LONG).show();
                 showDB();
             }
@@ -119,9 +151,17 @@ public class ActivityKho extends AppCompatActivity {
         } catch (NullPointerException e) {
             System.out.println(e);
         }
+        try {
+            Boolean checkSuaChiTietKho = (Boolean) data.getSerializableExtra("xac_nhan_sua");
+            if (checkSuaChiTietKho) {
+                Toast.makeText(this, "Sửa kho thành công", Toast.LENGTH_SHORT).show();
+            }
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }
 
         if (requestCode == 1) {
-            if (resultCode == 1) {
+            if (resultCode == 0 || resultCode == 1 || resultCode == 2) {
                 showDB();
             }
         }

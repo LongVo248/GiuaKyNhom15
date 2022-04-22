@@ -48,6 +48,12 @@ public class ActivityChiTietKho extends AppCompatActivity {
                 dialogXoa();
             }
         });
+        btnSua.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogSua();
+            }
+        });
     }
 
     public void showXoaKhongThanhCong(boolean check) {
@@ -60,10 +66,20 @@ public class ActivityChiTietKho extends AppCompatActivity {
             finish();
         }
     }
+    public void showSuaKhongThanhCong(boolean check) {
+        if (check == false) {
+            Toast.makeText(this, "Kho đã có trong phiếu nhập\n Không thể sửa!", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("xac_nhan_sua", check);
+            setResult(2, intent);
+            finish();
+        }
+    }
 
     private void dialogXoa() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialogconfirmxoa);
+        dialog.setContentView(R.layout.dialog_confirm_xoa);
 
         dialog.show();
         //tắt click ngoài là thoát
@@ -77,6 +93,33 @@ public class ActivityChiTietKho extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.cancel();
                 showXoaKhongThanhCong(dbChiTietKho.deleteKho(ActivityChiTietKho.this.kho.getMaKho()));
+            }
+        });
+
+        btnKhong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
+    private void dialogSua() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_confirm_sua);
+
+        dialog.show();
+        //tắt click ngoài là thoát
+        dialog.setCanceledOnTouchOutside(false);
+
+        Button btnCo = dialog.findViewById(R.id.btnCo);
+        Button btnKhong = dialog.findViewById(R.id.btnKhong);
+
+        btnCo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                kho = new Kho(kho.getMaKho(), editTenKhoChiTiet.getText().toString());
+                showSuaKhongThanhCong(dbChiTietKho.capNhatKho(kho));
             }
         });
 
