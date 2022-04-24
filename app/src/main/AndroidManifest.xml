@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiuaKyNhom15">
         <activity
+            android:name=".ActivityChiTietPhieuNhap"
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
             android:name=".ActivityChiTietVatTu"
             android:exported="false" />
         <activity
@@ -20,10 +24,10 @@
         <activity
             android:name=".ActivityChiTietKho"
             android:exported="false" />
-
         <activity
             android:name=".ActivityPhieuNhap"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityThemPhieuNhap"
             android:exported="false" />
