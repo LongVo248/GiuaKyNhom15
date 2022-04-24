@@ -74,7 +74,7 @@ public class ActivityPhieuNhap extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityPhieuNhap.this, ActivityChiTietPhieuNhap.class);
                 intent.putExtra("chitietphieunhap", phieuNhapArrayList.get(i));
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 3);
             }
         });
         btnThemPhieu.setOnClickListener(new View.OnClickListener() {

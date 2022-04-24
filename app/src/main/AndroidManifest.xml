@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiuaKyNhom15">
         <activity
+            android:name=".ActivityChonVatTu"
+            android:exported="false" />
+        <activity
             android:name=".ActivityChiTietPhieuNhap"
             android:exported="false"
             android:windowSoftInputMode="stateHidden" />

@@ -267,7 +267,14 @@ public class DBVatTu extends SQLiteOpenHelper {
         }
     }
 
-
+    public String getTenvt(String maVT){
+        String getTenvt = "SELECT TENVT FORM " + VATTU + " WHERE MAVT = " +String.valueOf(maVT);
+        System.out.println(getTenvt);
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getTenvt, null);
+        cursor.moveToFirst();
+                return cursor.getString(0);
+    }
     //Phiếu nhập
 
     public void themPhieunhap(PhieuNhap phieuNhap) {
@@ -323,6 +330,6 @@ public class DBVatTu extends SQLiteOpenHelper {
         } catch (NullPointerException e) {
             Logger.getLogger(String.valueOf(e));
         }
-        return phieuNhapArrayList;
+        return getAllPhieuNhap();
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BB75F6C7"
+    android:orientation="vertical"
+    tools:context=".ActivityChonVatTu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgThoatChonVatTu"
+            android:layout_width="26dp"
+            android:layout_height="46dp"
+            android:background="#AEFFF5"
+            app:srcCompat="@drawable/ic_backward" />
+
+        <TextView
+            android:id="@+id/tvVatTu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#AEFFF5"
+            android:fontFamily="sans-serif-medium"
+            android:paddingRight="20dp"
+            android:text="DANH SÁCH VẬT TƯ"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editSearchChonVT"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="80dp"
+            android:hint="Tìm kiếm theo tên vật tư" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/ic_btn_search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:background="#A7FFE0">
+
+        <ListView
+            android:id="@+id/lvDSChonVatTu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnChonVatTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_button"
+            android:text="Chọn" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

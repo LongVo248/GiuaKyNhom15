@@ -12,23 +12,27 @@ import androidx.annotation.Nullable;
 
 import com.holo2k.giuakynhom15.R;
 import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
+import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ThemPhieuAdapter extends ArrayAdapter<ChiTietPhieuNhap> {
+public class ThemPhieuAdapter extends ArrayAdapter<VatTuPhieuNhap> {
     Context context;
     int resource;
-    ArrayList<ChiTietPhieuNhap> themPhieuNhapArrayList;
-    public ThemPhieuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<ChiTietPhieuNhap> objects) {
+    ArrayList<VatTuPhieuNhap> vatTuPhieuNhapArrayList;
+
+    public ThemPhieuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VatTuPhieuNhap> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
-        this.themPhieuNhapArrayList = objects;
+        this.vatTuPhieuNhapArrayList = objects;
     }
+
 
     @Override
     public int getCount() {
-        return this.themPhieuNhapArrayList.size();
+        return this.vatTuPhieuNhapArrayList.size();
     }
 
     @NonNull
@@ -38,9 +42,12 @@ public class ThemPhieuAdapter extends ArrayAdapter<ChiTietPhieuNhap> {
         TextView tvMaTVThemPhieu = convertView.findViewById(R.id.tvMaVTThemPhieu);
         TextView tvTenTVThemPhieu = convertView.findViewById(R.id.tvTenVTThemPhieu);
         TextView tvSLVTThemPhieu = convertView.findViewById(R.id.tvSLVTThemPhieu);
-        ChiTietPhieuNhap chiTietPhieuNhap = themPhieuNhapArrayList.get(position);
-        tvMaTVThemPhieu.setText(String.valueOf(chiTietPhieuNhap.getMaVatTu()));
-        tvSLVTThemPhieu.setText(String.valueOf(chiTietPhieuNhap.getSoLuong()));
+        TextView tvDVVTThemPhieu = convertView.findViewById(R.id.tvDVVTThemPhieu);
+        VatTuPhieuNhap vatTuPhieuNhap = vatTuPhieuNhapArrayList.get(position);
+        tvMaTVThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getMaVT()));
+        tvSLVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getsL()));
+        tvTenTVThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getTenVT()));
+        tvDVVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getdV()));
         return convertView;
     }
 

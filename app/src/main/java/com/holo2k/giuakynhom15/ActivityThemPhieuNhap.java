@@ -1,6 +1,7 @@
 package com.holo2k.giuakynhom15;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,13 +10,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.holo2k.giuakynhom15.adapter.ThemPhieuAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
+import com.holo2k.giuakynhom15.model.Kho;
+import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,14 +30,14 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
     ListView lvDSVatTuPhieu;
     ImageView imgCalendar;
     Button btnLuuPhieu, btnThemVTThemPhieu, btnDatLai;
-    ArrayList<ChiTietPhieuNhap> chiTietPhieuNhapArrayList = new ArrayList<>();
+    ArrayList<VatTuPhieuNhap> vatTuPhieuNhapArrayList = new ArrayList<>();
     ThemPhieuAdapter themPhieuAdapter;
     DBVatTu dbChiTietPhieu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chi_tiet_phieu);
+        setContentView(R.layout.activity_them_phieu_nhap);
         setControls();
         setEvents();
     }
@@ -51,6 +54,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
     }
 
     private void setEvents() {
+
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +71,30 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 datePickerDialog.show();
             }
         });
+        btnThemVTThemPhieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityThemPhieuNhap.this, ActivityChonVatTu.class);
+                startActivityForResult(intent, 4);
+            }
+        });
 
+    }
+
+    public void layDL() {
+        VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) getIntent().getSerializableExtra("chitietchonvattu");
+        vatTuPhieuNhapArrayList.add(vatTuPhieuNhap);
+        themPhieuAdapter = new ThemPhieuAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhapArrayList);
+        lvDSVatTuPhieu.setAdapter(themPhieuAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 4) {
+            if (resultCode == 1) {
+                layDL();
+            }
+        }
     }
 }
