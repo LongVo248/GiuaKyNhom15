@@ -84,7 +84,7 @@ public class ActivityVatTu extends AppCompatActivity {
 
     private void dialogThemVatTu() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_them_kho);
+        dialog.setContentView(R.layout.dialog_them_vat_tu);
 
         dialog.show();
         //tắt click ngoài là thoát'

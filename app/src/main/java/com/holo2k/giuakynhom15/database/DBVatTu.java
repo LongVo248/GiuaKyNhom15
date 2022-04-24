@@ -176,6 +176,7 @@ public class DBVatTu extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(MAVT, vatTu.getMaVatTu());
         values.put(TENVT, vatTu.getTenVatTu());
         values.put(XUATXU, vatTu.getXuatXu());
 
