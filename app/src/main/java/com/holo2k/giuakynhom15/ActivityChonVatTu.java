@@ -26,8 +26,6 @@ import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 import java.util.ArrayList;
 
 public class ActivityChonVatTu extends AppCompatActivity {
-
-    ListView lvChonVT;
     Button btnChon;
     ListView lvDSVatTu;
     ImageView imgThoatVatTu;
@@ -35,7 +33,7 @@ public class ActivityChonVatTu extends AppCompatActivity {
     VatTuAdapter vatTuAdapter;
     DBVatTu dbVatTu;
     EditText editSearch;
-
+    VatTuPhieuNhap vatTuPhieuNhap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +69,6 @@ public class ActivityChonVatTu extends AppCompatActivity {
         lvDSVatTu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                ChiTietPhieuNhap chiTietPhieuNhap = new ChiTietPhieuNhap();
                 dialogChonVT(vatTuArrayList.get(i));
             }
         });
@@ -80,8 +76,11 @@ public class ActivityChonVatTu extends AppCompatActivity {
     }
 
     private void setControls() {
-        lvChonVT = findViewById(R.id.lvDSChonVatTu);
         btnChon = findViewById(R.id.btnChonVatTu);
+        lvDSVatTu = findViewById(R.id.lvDSChonVatTu);
+        editSearch = findViewById(R.id.editSearchChonVT);
+        imgThoatVatTu = findViewById(R.id.imgThoatChonVatTu);
+
     }
 
     public void showResultSearch(String data) {
@@ -104,8 +103,8 @@ public class ActivityChonVatTu extends AppCompatActivity {
 
         dialog.show();
         //tắt click ngoài là thoát'
-
         dialog.setCanceledOnTouchOutside(false);
+
         Button btnThemSLVT = dialog.findViewById(R.id.btnThemSLVT);
         ImageView imgThoatChonSLVT = dialog.findViewById(R.id.imgThoatChonSLVT);
         EditText editThemDVT = dialog.findViewById(R.id.editThemDVT);
@@ -113,14 +112,14 @@ public class ActivityChonVatTu extends AppCompatActivity {
         btnThemSLVT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VatTuPhieuNhap vatTuPhieuNhap = new VatTuPhieuNhap();
-                vatTuPhieuNhap.setdV(editThemDVT.getText().toString());
-                vatTuPhieuNhap.setsL(editThemSLVT.getText().toString());
-                vatTuPhieuNhap.setMaVT(vatTu.getMaVatTu());
-                vatTuPhieuNhap.setTenVT(dbVatTu.getTenvt(vatTu.getMaVatTu()));
                 dialog.cancel();
-                Intent intent = new Intent();
-                intent.putExtra("chitietchonvattu", vatTuPhieuNhap);
+                ActivityChonVatTu.this.vatTuPhieuNhap = new VatTuPhieuNhap(
+                        vatTu.getMaVatTu(),
+                        vatTu.getTenVatTu(),
+                        editThemDVT.getText().toString(),
+                        editThemSLVT.getText().toString());
+                Intent intent = new Intent(ActivityChonVatTu.this, ActivityThemPhieuNhap.class);
+                intent.putExtra("vat_tu_phieu_nhap", vatTuPhieuNhap);
                 setResult(1, intent);
                 finish();
 

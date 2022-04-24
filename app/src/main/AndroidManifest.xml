@@ -13,7 +13,8 @@
         android:theme="@style/Theme.GiuaKyNhom15">
         <activity
             android:name=".ActivityChonVatTu"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityChiTietPhieuNhap"
             android:exported="false"
@@ -33,7 +34,8 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityThemPhieuNhap"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ActivityKho"
             android:exported="false"

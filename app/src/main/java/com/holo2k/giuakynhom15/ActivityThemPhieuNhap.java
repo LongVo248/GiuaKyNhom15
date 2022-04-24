@@ -81,8 +81,9 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
 
     }
 
-    public void layDL() {
-        VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) getIntent().getSerializableExtra("chitietchonvattu");
+    public void layDL(Intent data) {
+        VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) data.getSerializableExtra("vat_tu_phieu_nhap");
+        System.out.println("\n\n\n\n" + vatTuPhieuNhap.getMaVT() + "\n\n\n");
         vatTuPhieuNhapArrayList.add(vatTuPhieuNhap);
         themPhieuAdapter = new ThemPhieuAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhapArrayList);
         lvDSVatTuPhieu.setAdapter(themPhieuAdapter);
@@ -93,7 +94,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 4) {
             if (resultCode == 1) {
-                layDL();
+                layDL(data);
             }
         }
     }
