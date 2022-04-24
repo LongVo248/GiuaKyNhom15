@@ -4,16 +4,19 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.holo2k.giuakynhom15.adapter.KhoItemSniperAdapter;
 import com.holo2k.giuakynhom15.adapter.ThemPhieuAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
@@ -25,6 +28,9 @@ import java.util.Calendar;
 
 public class ActivityThemPhieuNhap extends AppCompatActivity {
     TextView tvMaPhieuThemPhieu;
+    Spinner spKho;
+    Kho kho;
+    ArrayList<Kho> khos;
     EditText editTenKhoChiTiet;
     TextView tvNgayNhapPhieu;
     ListView lvDSVatTuPhieu;
@@ -51,10 +57,23 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         btnLuuPhieu = findViewById(R.id.btnLuuPhieu);
         btnThemVTThemPhieu = findViewById(R.id.btnThemVTthemPhieu);
         imgCalendar = findViewById(R.id.imgCalendar);
+        spKho = findViewById(R.id.spKho);
     }
 
     private void setEvents() {
+        KhoItemSniperAdapter khoItemSniperAdapter = new KhoItemSniperAdapter(this, R.layout.item_selected, getAllKho());
+        spKho.setAdapter(khoItemSniperAdapter);
+        spKho.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                kho = khoItemSniperAdapter.getItem(i);
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +99,10 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         });
 
     }
-
+    public ArrayList<Kho> getAllKho(){
+        dbChiTietPhieu = new DBVatTu(this);
+        return dbChiTietPhieu.getAllKho();
+    }
     public void layDL(Intent data) {
         VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) data.getSerializableExtra("vat_tu_phieu_nhap");
         System.out.println("\n\n\n\n" + vatTuPhieuNhap.getMaVT() + "\n\n\n");
