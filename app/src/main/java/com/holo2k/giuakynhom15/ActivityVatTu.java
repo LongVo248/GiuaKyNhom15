@@ -71,7 +71,7 @@ public class ActivityVatTu extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityVatTu.this, ActivityChiTietVatTu.class);
                 intent.putExtra("chitietvattu", vatTuArrayList.get(i));
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, 2);
             }
         });
         btnThemVatTu.setOnClickListener(new View.OnClickListener() {
@@ -163,7 +163,7 @@ public class ActivityVatTu extends AppCompatActivity {
             System.out.println(e);
         }
 
-        if (requestCode == 1) {
+        if (requestCode == 2) {
             if (resultCode == 0 || resultCode == 1 || resultCode == 2) {
                 showDB();
             }

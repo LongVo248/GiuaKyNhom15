@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setEvent();
     }
 
+
     private void setEvent() {
         //tạo database
         DBVatTu dbVatTu = new DBVatTu(MainActivity.this);
@@ -39,6 +40,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(MainActivity.this, ActivityVatTu.class);
+                startActivity(intent);
+            }
+        });
+
+        btnPhieuNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, ActivityPhieuNhap.class);
                 startActivity(intent);
             }
         });

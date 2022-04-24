@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.holo2k.giuakynhom15.model.Kho;
+import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
 
 import java.util.ArrayList;
@@ -264,5 +265,64 @@ public class DBVatTu extends SQLiteOpenHelper {
         } else {
             return false;
         }
+    }
+
+
+    //Phiếu nhập
+
+    public void themPhieunhap(PhieuNhap phieuNhap) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(MAKHO, phieuNhap.getMaKho());
+        values.put(NGAYLAP, String.valueOf(phieuNhap.getNgayNhapPhieu()));
+        db.insert(PHIEUNHAP, null, values);
+        db.close();
+    }
+
+    public ArrayList<PhieuNhap> getAllPhieuNhap() {
+        ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
+        String getAllPhieuNhap = "SELECT * FROM " + PHIEUNHAP;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getAllPhieuNhap, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String maPhieuNhap;
+            String tenKho;
+            String ngayNhap;
+            maPhieuNhap = cursor.getString(0);
+            tenKho = cursor.getString(1);
+            ngayNhap = cursor.getString(2);
+            PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, ngayNhap);
+            phieuNhapArrayList.add(phieuNhap);
+            cursor.moveToNext();
+        }
+        return phieuNhapArrayList;
+    }
+
+    public ArrayList<PhieuNhap> searchPhieuNhap(String data) {
+        ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
+        String getALLPhieuNhap = new StringBuilder().append("SELECT * FROM ").append(PHIEUNHAP).append(" WHERE ").append(SOPHIEU)
+                .append(" LIKE '%").append(data).append("%'").toString();
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor cursor = db.rawQuery(getALLPhieuNhap, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String maPhieuNhap;
+                String tenKho;
+                String ngayNhap;
+                maPhieuNhap = cursor.getString(0);
+                tenKho = cursor.getString(1);
+                ngayNhap = cursor.getString(2);
+                PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, ngayNhap);
+                phieuNhapArrayList.add(phieuNhap);
+                cursor.moveToNext();
+            }
+            return phieuNhapArrayList;
+        } catch (NullPointerException e) {
+            Logger.getLogger(String.valueOf(e));
+        }
+        return phieuNhapArrayList;
     }
 }

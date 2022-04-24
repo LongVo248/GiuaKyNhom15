@@ -20,6 +20,13 @@
         <activity
             android:name=".ActivityChiTietKho"
             android:exported="false" />
+
+        <activity
+            android:name=".ActivityPhieuNhap"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityThemPhieuNhap"
+            android:exported="false" />
         <activity
             android:name=".ActivityKho"
             android:exported="false"
