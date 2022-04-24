@@ -103,7 +103,6 @@
                 android:id="@+id/tvNgayNhapPhieu"
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
-                android:text="DB0001"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
