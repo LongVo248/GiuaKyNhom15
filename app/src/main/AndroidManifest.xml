@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GiuaKyNhom15">
         <activity
+            android:name=".ActivityChiTietVatTu"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityVatTu"
+            android:exported="false" />
+        <activity
             android:name=".ActivityChiTietKho"
             android:exported="false" />
         <activity

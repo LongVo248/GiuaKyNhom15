@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import com.holo2k.giuakynhom15.model.Kho;
+import com.holo2k.giuakynhom15.model.VatTu;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -163,6 +164,101 @@ public class DBVatTu extends SQLiteOpenHelper {
         if (!checkMaKhoTrongPhieuNhap(id)) {
             SQLiteDatabase db = this.getWritableDatabase();
             db.delete(KHO, MAKHO + " = " + "'" + String.valueOf(id) + "'", null);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    // CRUD Vat Tu
+    public void themVatTu(VatTu vatTu) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TENVT, vatTu.getTenVatTu());
+        values.put(XUATXU, vatTu.getXuatXu());
+
+        db.insert(VATTU, null, values);
+        db.close();
+    }
+
+    public boolean capNhatVatTu(VatTu vatTu) {
+        if (!checkMaVatTuTrongPhieuNhap(vatTu.getMaVatTu())) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(MAVT, vatTu.getMaVatTu());
+            values.put(TENVT, vatTu.getTenVatTu());
+            values.put(XUATXU, vatTu.getXuatXu());
+            db.update(VATTU, values, MAVT + "=" + String.valueOf(vatTu.getMaVatTu()), null);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public ArrayList<VatTu> getAllVatTu() {
+        ArrayList<VatTu> vatTuArrayList = new ArrayList<>();
+        String getAllVatTu = "SELECT * FROM " + VATTU;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getAllVatTu, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String maVatTu;
+            String tenVatTu;
+            String xuatXu;
+            maVatTu = cursor.getString(0);
+            tenVatTu = cursor.getString(1);
+            xuatXu = cursor.getString(2);
+            VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu);
+            vatTuArrayList.add(vatTu);
+            cursor.moveToNext();
+        }
+        return vatTuArrayList;
+    }
+
+    public ArrayList<VatTu> searchVatTu(String data) {
+        ArrayList<VatTu> vatTuArrayList = new ArrayList<>();
+        String getAllVatTu = new StringBuilder().append("SELECT * FROM ").append(VATTU).append(" WHERE ").append(TENVT)
+                .append(" LIKE '%").append(data).append("%'").toString();
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor cursor = db.rawQuery(getAllVatTu, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                String maVatTu;
+                String tenVatTu;
+                String xuatXu;
+                maVatTu = cursor.getString(0);
+                tenVatTu = cursor.getString(1);
+                xuatXu = cursor.getString(2);
+                VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu);
+                vatTuArrayList.add(vatTu);
+                cursor.moveToNext();
+            }
+            return vatTuArrayList;
+        } catch (NullPointerException e) {
+            Logger.getLogger(String.valueOf(e));
+        }
+        return getAllVatTu();
+    }
+
+    public boolean checkMaVatTuTrongPhieuNhap(String maVatTu) {
+        //true la tim thay
+        //false khong tim thay
+
+        String getAllVatTu = "SELECT * FROM " + PHIEUNHAP + " WHERE MAVT = " + String.valueOf(maVatTu);
+        System.out.println(getAllVatTu);
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getAllVatTu, null);
+        return cursor.getCount() == 0 ? false : true;
+    }
+
+    public boolean deleteVatTu(String id) {
+        //chú ý : getWritableDatabase là cả đọc và ghi
+        if (!checkMaVatTuTrongPhieuNhap(id)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            db.delete(VATTU, MAVT + " = " + "'" + id + "'", null);
             return true;
         } else {
             return false;

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BB75F6C7"
+    android:orientation="vertical"
+    tools:context=".ActivityVatTu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgThoatVatTu"
+            android:layout_width="26dp"
+            android:layout_height="46dp"
+            android:background="#AEFFF5"
+            app:srcCompat="@drawable/ic_backward" />
+
+        <TextView
+            android:id="@+id/tvVatTu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#AEFFF5"
+            android:fontFamily="sans-serif-medium"
+            android:paddingRight="20dp"
+            android:text="DANH SÁCH VẬT TƯ"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editSearch"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="80dp"
+            android:hint="Tìm kiếm theo tên vật tư" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/ic_btn_search" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:background="#A7FFE0">
+
+        <ListView
+            android:id="@+id/lvDSVatTu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnThemVatTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_button"
+            android:text="Thêm" />
+
+        <Button
+            android:id="@+id/btnThongKeVatTu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/background_button"
+            android:text="Thống kê" />
+    </LinearLayout>
+
+
+</LinearLayout>

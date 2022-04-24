@@ -35,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnVatTu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, ActivityVatTu.class);
+                startActivity(intent);
+            }
+        });
+
         //Nhấn nút thoát app
         btnThoat.setOnClickListener(new View.OnClickListener() {
             @Override
