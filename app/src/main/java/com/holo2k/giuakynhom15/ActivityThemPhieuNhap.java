@@ -34,7 +34,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
     EditText editTenKhoChiTiet;
     TextView tvNgayNhapPhieu;
     ListView lvDSVatTuPhieu;
-    ImageView imgCalendar;
+    ImageView imgCalendar, imgThoat;
     Button btnLuuPhieu, btnThemVTThemPhieu, btnDatLai;
     ArrayList<VatTuPhieuNhap> vatTuPhieuNhapArrayList = new ArrayList<>();
     ThemPhieuAdapter themPhieuAdapter;
@@ -58,6 +58,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         btnThemVTThemPhieu = findViewById(R.id.btnThemVTthemPhieu);
         imgCalendar = findViewById(R.id.imgCalendar);
         spKho = findViewById(R.id.spKho);
+        imgThoat = findViewById(R.id.imgThoatThemPhieuNhap);
     }
 
     private void setEvents() {
@@ -74,6 +75,14 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
 
             }
         });
+        imgThoat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                setResult(0, intent);
+                finish();
+            }
+        });
         imgCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +96,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                         tvNgayNhapPhieu.setText(String.format("%d/%d/%d", i2, i1 + 1, i));
                     }
                 }, year, month, day);
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
         });
@@ -99,10 +109,12 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         });
 
     }
-    public ArrayList<Kho> getAllKho(){
+
+    public ArrayList<Kho> getAllKho() {
         dbChiTietPhieu = new DBVatTu(this);
         return dbChiTietPhieu.getAllKho();
     }
+
     public void layDL(Intent data) {
         VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) data.getSerializableExtra("vat_tu_phieu_nhap");
         System.out.println("\n\n\n\n" + vatTuPhieuNhap.getMaVT() + "\n\n\n");

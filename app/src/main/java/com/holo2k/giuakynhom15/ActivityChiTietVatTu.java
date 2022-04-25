@@ -148,6 +148,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
         imgThoat = findViewById(R.id.imgThoatChiTietVatTu);
         tvMaVatTuChiTiet = findViewById(R.id.tvMaVatTuChiTiet);
         editTenVatTuChiTiet = findViewById(R.id.editTenVatTuChiTiet);
+        editXuatXuChiTiet = findViewById(R.id.editXuatXuChiTiet);
 
     }
 }
