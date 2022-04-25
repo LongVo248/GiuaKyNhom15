@@ -1,18 +1,19 @@
 package com.holo2k.giuakynhom15.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 public class PhieuNhap implements Serializable {
     private String maPhieuNhap;
     private String maKho;
-    private String ngayNhapPhieu;
+    private Date ngayNhapPhieu;
 
     public PhieuNhap() {
 
     }
 
-    public PhieuNhap(String maPhieuNhap, String maKho, String ngayNhapPhieu) {
+    public PhieuNhap(String maPhieuNhap, String maKho, Date ngayNhapPhieu) {
         this.maPhieuNhap = maPhieuNhap;
         this.maKho = maKho;
         this.ngayNhapPhieu = ngayNhapPhieu;
@@ -34,11 +35,11 @@ public class PhieuNhap implements Serializable {
         this.maKho = maKho;
     }
 
-    public String getNgayNhapPhieu() {
+    public Date getNgayNhapPhieu() {
         return ngayNhapPhieu;
     }
 
-    public void setNgayNhapPhieu(String ngayNhapPhieu) {
+    public void setNgayNhapPhieu(Date ngayNhapPhieu) {
         this.ngayNhapPhieu = ngayNhapPhieu;
     }
 }

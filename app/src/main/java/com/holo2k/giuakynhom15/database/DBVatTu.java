@@ -14,7 +14,11 @@ import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -249,7 +253,7 @@ public class DBVatTu extends SQLiteOpenHelper {
         //true la tim thay
         //false khong tim thay
 
-        String getAllVatTu = "SELECT * FROM " + PHIEUNHAP + " WHERE MAVT = " + String.valueOf(maVatTu);
+        String getAllVatTu = "SELECT * FROM " + CHITIETPHIEUNHAP + " WHERE MAVT = " + "'" + String.valueOf(maVatTu) + "'";
         System.out.println(getAllVatTu);
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(getAllVatTu, null);
@@ -292,11 +296,24 @@ public class DBVatTu extends SQLiteOpenHelper {
             maPhieuNhap = cursor.getString(0);
             tenKho = cursor.getString(1);
             ngayNhap = cursor.getString(2);
-            PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, ngayNhap);
+            PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, stringToDate(ngayNhap));
             phieuNhapArrayList.add(phieuNhap);
             cursor.moveToNext();
         }
         return phieuNhapArrayList;
+    }
+
+    public Date stringToDate(String date) {
+        DateFormat dateFormat = null;
+        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date newDate;
+        try {
+            newDate = dateFormat.parse(date);
+            return newDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public ArrayList<PhieuNhap> searchPhieuNhap(String data) {
@@ -314,7 +331,7 @@ public class DBVatTu extends SQLiteOpenHelper {
                 maPhieuNhap = cursor.getString(0);
                 tenKho = cursor.getString(1);
                 ngayNhap = cursor.getString(2);
-                PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, ngayNhap);
+                PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, stringToDate(ngayNhap));
                 phieuNhapArrayList.add(phieuNhap);
                 cursor.moveToNext();
             }
