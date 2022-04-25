@@ -324,4 +324,15 @@ public class DBVatTu extends SQLiteOpenHelper {
         }
         return getAllPhieuNhap();
     }
+
+//    public String layMaPhieuMax(){
+//        String layMaPhieuMax = "SELECT MAX(MAVT) FROM " + VATTU;
+//        SQLiteDatabase db = getWritableDatabase();
+//        try{
+//        Cursor cursor = db.rawQuery(layMaPhieuMax, null);
+//        return cursor.getString(0);
+//        } catch (NullPointerException e) {
+//            Logger.getLogger(String.valueOf(e));
+//        } return String.valueOf(1);
+//    }
 }

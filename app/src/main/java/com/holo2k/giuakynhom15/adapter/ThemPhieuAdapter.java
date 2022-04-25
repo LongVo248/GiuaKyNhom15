@@ -39,14 +39,14 @@ public class ThemPhieuAdapter extends ArrayAdapter<VatTuPhieuNhap> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, null);
-        TextView tvMaTVThemPhieu = convertView.findViewById(R.id.tvMaVTThemPhieu);
-        TextView tvTenTVThemPhieu = convertView.findViewById(R.id.tvTenVTThemPhieu);
+        TextView tvMaVTThemPhieu = convertView.findViewById(R.id.tvMaVTThemPhieu);
+        TextView tvTenVTThemPhieu = convertView.findViewById(R.id.tvTenVTThemPhieu);
         TextView tvSLVTThemPhieu = convertView.findViewById(R.id.tvSLVTThemPhieu);
         TextView tvDVVTThemPhieu = convertView.findViewById(R.id.tvDVVTThemPhieu);
         VatTuPhieuNhap vatTuPhieuNhap = vatTuPhieuNhapArrayList.get(position);
-        tvMaTVThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getMaVT()));
+        tvMaVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getMaVT()));
         tvSLVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getsL()));
-        tvTenTVThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getTenVT()));
+        tvTenVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getTenVT()));
         tvDVVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getdV()));
         return convertView;
     }

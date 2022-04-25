@@ -21,6 +21,7 @@ import com.holo2k.giuakynhom15.adapter.ThemPhieuAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
 import com.holo2k.giuakynhom15.model.Kho;
+import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.util.ArrayList;
@@ -95,6 +96,18 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ActivityThemPhieuNhap.this, ActivityChonVatTu.class);
                 startActivityForResult(intent, 4);
+            }
+        });
+
+        btnLuuPhieu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PhieuNhap phieuNhap = new PhieuNhap();
+                phieuNhap.setNgayNhapPhieu(tvNgayNhapPhieu.getText().toString());
+                phieuNhap.setMaKho(kho.getTenKho());
+                dbChiTietPhieu.themPhieunhap(phieuNhap);
+                Intent intent= new Intent(ActivityThemPhieuNhap.this, ActivityPhieuNhap.class);
+                startActivity(intent);
             }
         });
 
