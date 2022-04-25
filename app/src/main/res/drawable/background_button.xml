@@ -1,17 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!--Hiển thị khi không nhấn button-->
-<item android:state_pressed="false">
-    <shape>
-        <!--Màu nền button-->
-        <solid android:color="#B1C8"></solid>
+    <item android:state_pressed="false">
+        <shape>
+            <!--Màu nền button-->
+            <solid android:color="#B1C8"></solid>
 
-        <!--Tạo viền cho button-->
-        <stroke android:width="3dp" android:color="#FFFFFF"></stroke>
+            <!--Tạo viền cho button-->
+            <stroke android:width="3dp" android:color="#FFFFFF"></stroke>
 
-        <!--Độ bo tròn 4 góc-->
-        <corners android:radius="35dp"></corners>
-    </shape>
-</item>
+            <!--Độ bo tròn 4 góc-->
+            <corners android:radius="35dp"></corners>
+        </shape>
+    </item>
+
+    <item android:state_pressed="true">
+        <shape>
+            <!--Màu nền button-->
+            <solid android:color="#BB11CC1A"></solid>
+
+            <!--Tạo viền cho button-->
+            <stroke android:width="3dp" android:color="#FFFFFF"></stroke>
+
+            <!--Độ bo tròn 4 góc-->
+            <corners android:radius="35dp"></corners>
+        </shape>
+    </item>
 
 </selector>

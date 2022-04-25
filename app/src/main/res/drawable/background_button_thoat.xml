@@ -12,4 +12,16 @@
             <corners android:radius="35dp"></corners>
         </shape>
     </item>
+    <item android:state_pressed="true">
+        <shape>
+            <!--Màu nền button-->
+            <solid android:color="#EF5213"></solid>
+
+            <!--Tạo viền cho button-->
+            <stroke android:width="3dp" android:color="#FFFFFF"></stroke>
+
+            <!--Độ bo tròn 4 góc-->
+            <corners android:radius="35dp"></corners>
+        </shape>
+    </item>
 </selector>
