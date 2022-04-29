@@ -3,6 +3,8 @@ package com.holo2k.giuakynhom15;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
@@ -107,7 +109,7 @@ public class ActivityKho extends AppCompatActivity {
     private void dialogThemKho() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_them_kho);
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         //tắt click ngoài là thoát'
 

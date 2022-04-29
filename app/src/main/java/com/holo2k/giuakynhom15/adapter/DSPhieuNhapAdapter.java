@@ -10,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.holo2k.giuakynhom15.ActivityPhieuNhap;
 import com.holo2k.giuakynhom15.R;
+import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.PhieuNhap;
 
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 public class DSPhieuNhapAdapter extends ArrayAdapter<PhieuNhap> {
     Context context;
     int resource;
+    DBVatTu dbPhieuNhapAdapter;
     ArrayList<PhieuNhap> phieuNhapArrayList;
     public DSPhieuNhapAdapter(@NonNull Context context, int resource, @NonNull ArrayList<PhieuNhap> objects) {
         super(context, resource, objects);
@@ -35,13 +38,14 @@ public class DSPhieuNhapAdapter extends ArrayAdapter<PhieuNhap> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, null);
+        dbPhieuNhapAdapter = new DBVatTu(context);
         TextView tvMaPhieu = convertView.findViewById(R.id.tvMaVTPhieu);
         TextView tvTenKhoPhieu = convertView.findViewById(R.id.tvTenKhoPhieu);
         TextView tvNgayNhap = convertView.findViewById(R.id.tvNgaynhap);
         PhieuNhap phieuNhap = phieuNhapArrayList.get(position);
         tvMaPhieu.setText(String.valueOf(phieuNhap.getMaPhieuNhap()));
-        tvTenKhoPhieu.setText(phieuNhap.getMaKho());
-        tvNgayNhap.setText(String.valueOf(phieuNhap.getNgayNhapPhieu()));
+        tvTenKhoPhieu.setText(dbPhieuNhapAdapter.getTenKhotrongChiTietPhieuNhap(phieuNhap.getMaKho()));
+        tvNgayNhap.setText(phieuNhap.getNgayNhapPhieu());
         return convertView;
     }
 

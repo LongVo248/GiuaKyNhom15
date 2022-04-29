@@ -13,12 +13,14 @@ import androidx.annotation.RequiresApi;
 import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
+import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -277,10 +279,17 @@ public class DBVatTu extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(SOPHIEU, phieuNhap.getMaPhieuNhap());
         values.put(MAKHO, phieuNhap.getMaKho());
-        values.put(NGAYLAP, String.valueOf(phieuNhap.getNgayNhapPhieu()));
+        values.put(NGAYLAP, phieuNhap.getNgayNhapPhieu());
         db.insert(PHIEUNHAP, null, values);
         db.close();
+    }
+
+    public void deleteAllTable(String table) {
+        String query = "delete from " + table.toUpperCase(Locale.ROOT);
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(query);
     }
 
     public ArrayList<PhieuNhap> getAllPhieuNhap() {
@@ -291,47 +300,37 @@ public class DBVatTu extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String maPhieuNhap;
-            String tenKho;
+            int maKho;
             String ngayNhap;
             maPhieuNhap = cursor.getString(0);
-            tenKho = cursor.getString(1);
-            ngayNhap = cursor.getString(2);
-            PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, stringToDate(ngayNhap));
+            ngayNhap = cursor.getString(1);
+            maKho = cursor.getInt(2);
+            PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, maKho, ngayNhap);
             phieuNhapArrayList.add(phieuNhap);
             cursor.moveToNext();
         }
         return phieuNhapArrayList;
     }
 
-    public Date stringToDate(String date) {
-        DateFormat dateFormat = null;
-        dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date newDate;
-        try {
-            newDate = dateFormat.parse(date);
-            return newDate;
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public ArrayList<PhieuNhap> searchPhieuNhap(String data) {
         ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
-        String getALLPhieuNhap = new StringBuilder().append("SELECT * FROM ").append(PHIEUNHAP).append(" WHERE ").append(SOPHIEU)
-                .append(" LIKE '%").append(data).append("%'").toString();
+        String getALLPhieuNhap = new StringBuilder().append("SELECT * FROM ")
+                .append(PHIEUNHAP).append(" WHERE ").append(SOPHIEU)
+                .append(" LIKE '%").append(data).append("%' ")
+                .append("OR ").toString();
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery(getALLPhieuNhap, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 String maPhieuNhap;
-                String tenKho;
+                int maKho;
                 String ngayNhap;
                 maPhieuNhap = cursor.getString(0);
-                tenKho = cursor.getString(1);
-                ngayNhap = cursor.getString(2);
-                PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, tenKho, stringToDate(ngayNhap));
+                ngayNhap = cursor.getString(1);
+                maKho = cursor.getInt(2);
+                PhieuNhap phieuNhap = new PhieuNhap(maPhieuNhap, maKho, ngayNhap);
                 phieuNhapArrayList.add(phieuNhap);
                 cursor.moveToNext();
             }
@@ -340,6 +339,60 @@ public class DBVatTu extends SQLiteOpenHelper {
             Logger.getLogger(String.valueOf(e));
         }
         return getAllPhieuNhap();
+    }
+
+    public String getTenKhotrongChiTietPhieuNhap(int maKho) {
+        String get = "SELECT TENKHO FROM KHO WHERE MAKHO = " + maKho;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(get, null);
+        if (cursor.getCount() != 0) {
+            cursor.moveToFirst();
+            String tenKho = cursor.getString(0);
+            cursor.close();
+            return tenKho;
+        } else {
+            cursor.close();
+            return null;
+        }
+    }
+
+    public ArrayList<VatTuPhieuNhap> getChiTietPhieuNhap(String maPhieuNhap) {
+        ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
+        String query = "SELECT * FROM " + CHITIETPHIEUNHAP + " WHERE SOPHIEU = '" + maPhieuNhap + "'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String maVT = cursor.getString(1);
+            String dVT = cursor.getString(2);
+            String sL = cursor.getString(3);
+            String tenVT = getVatTuPN(maVT);
+            VatTuPhieuNhap vatTuPhieuNhap = new VatTuPhieuNhap(maVT, tenVT, dVT, sL);
+            vatTuPhieuNhaps.add(vatTuPhieuNhap);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return vatTuPhieuNhaps;
+    }
+
+    public String getVatTuPN(String maVT) {
+        String tenVT = " SELECT TENVT FROM VATTU WHERE MAVT = '" + maVT + "'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(tenVT, null);
+        cursor.moveToFirst();
+        return cursor.getString(0);
+    }
+
+    public void themChiTietPhieuNhap(String maPhieuNhap, VatTuPhieuNhap vatTuPhieuNhap) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SOPHIEU, maPhieuNhap);
+        values.put(MAVT, vatTuPhieuNhap.getMaVT());
+        values.put(DVT, vatTuPhieuNhap.getdV());
+        values.put(SOLUONG, vatTuPhieuNhap.getsL());
+        db.insert(CHITIETPHIEUNHAP, null, values);
+        db.close();
     }
 
 //    public String layMaPhieuMax(){

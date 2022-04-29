@@ -12,7 +12,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/imgThoatChiTietKho"
+            android:id="@+id/imgThoatPhieuNhapChiTiet"
             android:layout_width="26dp"
             android:layout_height="46dp"
             app:srcCompat="@drawable/ic_backward"

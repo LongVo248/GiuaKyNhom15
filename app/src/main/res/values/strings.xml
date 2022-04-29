@@ -17,6 +17,7 @@
     <string name="dialog_them_kho">Thêm kho</string>
     <string name="dialog_them_vat_tu">Thêm vật tư</string>
     <string name="dialog_chon_slvt">Số lượng vật tư</string>
+    <string name="dialog_chon_vt">Chọn vật tư</string>
     <string name="co">Có</string>
     <string name="khong">Không</string>
     <string name="todo">TODO</string>

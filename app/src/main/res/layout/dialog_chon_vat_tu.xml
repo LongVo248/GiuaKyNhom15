@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    android:layout_width="400dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/background_confirm"
@@ -9,13 +9,13 @@
     android:paddingBottom="10dp">
 
     <ImageView
-        android:id="@+id/imgThoatChonSLVT"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/imgThoatChonVTTrongPhieu"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:srcCompat="@drawable/ic_x_thoat"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="TODO" />
 
     <TextView
         android:layout_width="match_parent"
@@ -26,63 +26,37 @@
         android:textSize="30sp" />
 
     <LinearLayout
+        android:paddingRight="7dp"
+        android:paddingLeft="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="400dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="55dp"
-                android:layout_marginEnd="14dp"
-                android:text="@string/dvt"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editThemDVT"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:importantForAutofill="no"/>
-
+            <ListView
+                android:id="@+id/lvChonVatTu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp">
 
-            <TextView
+            <Button
+                android:id="@+id/btnThemVTPN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginEnd="14dp"
-                android:text="@string/sl"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editThemSL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:importantForAutofill="no"/>
-
+                android:background="@drawable/background_button"
+                android:text="@string/them_kho_dialog" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnThemSLVT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_button"
-            android:text="@string/them_kho_dialog" />
     </LinearLayout>
 
 

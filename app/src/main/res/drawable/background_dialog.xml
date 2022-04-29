@@ -3,10 +3,10 @@
     <item android:state_pressed="false">
         <shape>
             <!--Màu nền button-->
-            <solid android:color="#92AAAE"></solid>
+            <solid android:color="#D2F9FF"></solid>
 
             <!--Tạo viền cho button-->
-            <stroke android:width="3dp" android:color="#FF2626"></stroke>
+            <stroke android:width="3dp" android:color="#44983A"></stroke>
         </shape>
     </item>
 </selector>

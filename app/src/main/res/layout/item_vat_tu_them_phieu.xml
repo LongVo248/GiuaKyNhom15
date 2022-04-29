@@ -3,48 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
+    android:gravity="center"
     android:background="@drawable/background_item"
     android:orientation="horizontal">
 
+    <TextView
+        android:id="@+id/tvMaVTThemPhieu"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_marginLeft="10dp"
+        android:text="DB00001"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TableRow>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:id="@+id/tvMaVTThemPhieu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DB00001"/>
+    <TextView
+        android:id="@+id/tvTenVTThemPhieu"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Cái bàn"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
 
-            <TextView
-                android:layout_marginLeft="40dp"
-                android:layout_gravity="center"
-                android:id="@+id/tvTenVTThemPhieu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cái bàn"/>
+    <EditText
+        android:id="@+id/editDVVTThemPhieu"
+        android:layout_width="120dp"
+        android:maxLength="8"
+        android:maxLines="1"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Cái"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        tools:ignore="MissingConstraints" />
 
-            <TextView
-                android:layout_marginLeft="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/tvDVVTThemPhieu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="cái" />
-
-            <TextView
-                android:layout_marginLeft="30dp"
-                android:layout_gravity="center"
-                android:id="@+id/tvSLVTThemPhieu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20"
-                tools:ignore="MissingConstraints" />
-        </TableRow>
-    </TableLayout>
+    <EditText
+        android:id="@+id/editSLVTThemPhieu"
+        android:maxLength="7"
+        android:maxLines="1"
+        android:paddingLeft="-30dp"
+        android:inputType="numberSigned"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        tools:ignore="MissingConstraints" />
 
 </LinearLayout>

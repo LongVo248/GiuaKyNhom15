@@ -1,60 +1,92 @@
 package com.holo2k.giuakynhom15;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
-import android.widget.DatePicker;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
+import com.holo2k.giuakynhom15.adapter.VatTuPhieuNhapAdapter;
+import com.holo2k.giuakynhom15.database.DBVatTu;
+import com.holo2k.giuakynhom15.model.PhieuNhap;
+import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ActivityChiTietPhieuNhap extends AppCompatActivity {
-    Button btnNgay, btnThemVT, btnChiTiet, btnDatLai;
-    TextView tvNgayNhapPhieu;
-    ArrayList<ChiTietPhieuNhap> chiTietPhieuNhapArrayList = new ArrayList<>();
+    Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap;
+    TextView tvNgayNhapPhieuChiTiet, tvMaPhieuChiTiet, tvTenKhoPhieuNhapChiTiet;
+    ImageView imgThoatPhieuNhapChiTiet;
+    ListView lvDSVatTuChiTietPhieu;
+    VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
+    DBVatTu dbChiTietPhieuNhap = new DBVatTu(this);
+    ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_them_phieu_nhap);
+        setContentView(R.layout.activity_chi_tiet_phieu_nhap);
         setControl();
         setEvents();
     }
 
     private void setEvents() {
-        btnNgay.setOnClickListener(new View.OnClickListener() {
+        layDL();
+        imgThoatPhieuNhapChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("\n\n\n\n helloooooooooooooooooooooooooo \n\n\n");
-                Toast.makeText(ActivityChiTietPhieuNhap.this, "Hello", Toast.LENGTH_LONG);
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(ActivityChiTietPhieuNhap.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                        tvNgayNhapPhieu.setText(String.format("%d/%d/%d", i, i1, i2));
-                    }
-                }, year, month, day);
-                datePickerDialog.show();
+                finish();
             }
         });
 
     }
 
-    private void setControl() {
+    public void layDL() {
+        PhieuNhap phieuNhap = (PhieuNhap) getIntent().getSerializableExtra("chitietphieunhap");
+        tvTenKhoPhieuNhapChiTiet.setText(dbChiTietPhieuNhap.getTenKhotrongChiTietPhieuNhap(phieuNhap.getMaKho()));
+        tvMaPhieuChiTiet.setText(phieuNhap.getMaPhieuNhap());
+        tvNgayNhapPhieuChiTiet.setText(phieuNhap.getNgayNhapPhieu());
+        vatTuPhieuNhaps = dbChiTietPhieuNhap.getChiTietPhieuNhap(phieuNhap.getMaPhieuNhap());
+        vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhaps);
+        lvDSVatTuChiTietPhieu.setAdapter(vatTuPhieuNhapAdapter);
+        btnThemVTChiTietPhieuNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityChiTietPhieuNhap.this, ActivityChonVatTu.class);
+                startActivityForResult(intent, 6);
+            }
+        });
+    }
 
-        tvNgayNhapPhieu = findViewById(R.id.tvNgayNhapPhieu);
-        btnChiTiet = findViewById(R.id.btnChiTietPhieu);
-        btnThemVT = findViewById(R.id.btnThemVTthemPhieu);
-        btnDatLai = findViewById(R.id.btnDatLai);
+    private void setControl() {
+        tvNgayNhapPhieuChiTiet = findViewById(R.id.tvNgayNhapPhieuChiTiet);
+        btnThemVTChiTietPhieuNhap = findViewById(R.id.btnThemVTChiTietPhieuNhap);
+        btnXoaChiTietPhieuNhap = findViewById(R.id.btnXoaChiTietPhieuNhap);
+        tvMaPhieuChiTiet = findViewById(R.id.tvMaPhieuChiTiet);
+        tvTenKhoPhieuNhapChiTiet = findViewById(R.id.tvTenKhoPhieuNhapChiTiet);
+        imgThoatPhieuNhapChiTiet = findViewById(R.id.imgThoatPhieuNhapChiTiet);
+        lvDSVatTuChiTietPhieu = findViewById(R.id.lvDSVatTuChiTietPhieu);
+    }
+
+    public void layDLVT(Intent data) {
+        VatTuPhieuNhap vatTuPhieuNhap = (VatTuPhieuNhap) data.getSerializableExtra("vat_tu_phieu_nhap");
+        vatTuPhieuNhaps.add(vatTuPhieuNhap);
+        vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhaps);
+        lvDSVatTuChiTietPhieu.setAdapter(vatTuPhieuNhapAdapter);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 6) {
+            if (resultCode == 1){
+                layDLVT(data);
+            }
+        }
     }
 }

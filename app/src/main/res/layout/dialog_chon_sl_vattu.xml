@@ -9,7 +9,7 @@
     android:paddingBottom="10dp">
 
     <ImageView
-        android:id="@+id/imgThoatThemVatTu"
+        android:id="@+id/imgThoatChonSLVT"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/dialog_them_vat_tu"
+        android:text="@string/dialog_chon_slvt"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -34,80 +34,55 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/ma_vat_tu_dialog"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editThemMaVatTu"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:importantForAutofill="no"
-                android:hint="Nhập mã vật tư"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/ten_vat_tu_dialog"
+                android:layout_marginStart="55dp"
+                android:layout_marginEnd="14dp"
+                android:text="@string/dvt"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editThemTenVatTu"
-                android:layout_width="150dp"
+                android:id="@+id/editThemDVT"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:hint="Nhập tên vật tư"
                 android:importantForAutofill="no"/>
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="110dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/xuat_xu_dialog"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="14dp"
+                android:text="@string/sl"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/editThemXuatXu"
-                android:layout_width="150dp"
+                android:id="@+id/editThemSL"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:hint="Nhập xuất xứ"
                 android:importantForAutofill="no"/>
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnThemVatTuChiTiet"
+            android:id="@+id/btnThemSLVT"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button"
-            android:text="@string/them_vat_tu_dialog" />
+            android:text="@string/them_kho_dialog" />
     </LinearLayout>
 
 

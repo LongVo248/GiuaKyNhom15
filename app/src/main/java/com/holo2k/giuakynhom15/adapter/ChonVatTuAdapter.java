@@ -12,18 +12,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.holo2k.giuakynhom15.ActivityThemPhieuNhap;
 import com.holo2k.giuakynhom15.R;
 import com.holo2k.giuakynhom15.model.VatTu;
 
 import java.util.ArrayList;
 
-public class VatTuAdapter extends ArrayAdapter<VatTu> {
+public class ChonVatTuAdapter extends ArrayAdapter<VatTu> {
     Context context;
     int resource;
     ArrayList<VatTu> vatTuArrayList;
 
 
-    public VatTuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VatTu> objects) {
+    public ChonVatTuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VatTu> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -39,9 +40,18 @@ public class VatTuAdapter extends ArrayAdapter<VatTu> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(resource, null);
-        TextView tvMaVatTu = convertView.findViewById(R.id.tvMaVatTu);
-        TextView tvTenVatTu = convertView.findViewById(R.id.tvTenVatTu);
-        TextView tvXuatXu = convertView.findViewById(R.id.tvXuatXu);
+        TextView tvMaVatTu = convertView.findViewById(R.id.tvMaVatTuCheckBox);
+        TextView tvTenVatTu = convertView.findViewById(R.id.tvTenVatTuCheckBox);
+        TextView tvXuatXu = convertView.findViewById(R.id.tvXuatXuCheckBox);
+        CheckBox checkBox = convertView.findViewById(R.id.checkBox);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (checkBox.isChecked()){
+                    ActivityThemPhieuNhap.viTriCB.add(vatTuArrayList.get(position));
+                }
+            }
+        });
         VatTu vatTu = vatTuArrayList.get(position);
         tvMaVatTu.setText(String.valueOf(vatTu.getMaVatTu()));
         tvTenVatTu.setText(vatTu.getTenVatTu());

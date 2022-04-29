@@ -4,22 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.holo2k.giuakynhom15.adapter.VatTuAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
-import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
-import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.VatTu;
 import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
@@ -99,8 +97,8 @@ public class ActivityChonVatTu extends AppCompatActivity {
 
     private void dialogChonVT(VatTu vatTu) {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_chon_vat_tu);
-
+        dialog.setContentView(R.layout.dialog_chon_sl_vattu);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         //tắt click ngoài là thoát'
         dialog.setCanceledOnTouchOutside(false);

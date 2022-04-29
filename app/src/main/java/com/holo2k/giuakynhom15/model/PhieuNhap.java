@@ -6,14 +6,14 @@ import java.util.Date;
 
 public class PhieuNhap implements Serializable {
     private String maPhieuNhap;
-    private String maKho;
-    private Date ngayNhapPhieu;
+    private int maKho;
+    private String ngayNhapPhieu;
 
     public PhieuNhap() {
 
     }
 
-    public PhieuNhap(String maPhieuNhap, String maKho, Date ngayNhapPhieu) {
+    public PhieuNhap(String maPhieuNhap, int maKho, String ngayNhapPhieu) {
         this.maPhieuNhap = maPhieuNhap;
         this.maKho = maKho;
         this.ngayNhapPhieu = ngayNhapPhieu;
@@ -27,19 +27,19 @@ public class PhieuNhap implements Serializable {
         this.maPhieuNhap = maPhieuNhap;
     }
 
-    public String getMaKho() {
+    public int getMaKho() {
         return maKho;
     }
 
-    public void setMaKho(String maKho) {
+    public void setMaKho(int maKho) {
         this.maKho = maKho;
     }
 
-    public Date getNgayNhapPhieu() {
+    public String getNgayNhapPhieu() {
         return ngayNhapPhieu;
     }
 
-    public void setNgayNhapPhieu(Date ngayNhapPhieu) {
+    public void setNgayNhapPhieu(String ngayNhapPhieu) {
         this.ngayNhapPhieu = ngayNhapPhieu;
     }
 }

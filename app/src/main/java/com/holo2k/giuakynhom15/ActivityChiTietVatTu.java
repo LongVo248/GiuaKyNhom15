@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -82,7 +84,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
     private void dialogXoa() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_confirm_xoa);
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         //tắt click ngoài là thoát
         dialog.setCanceledOnTouchOutside(false);
@@ -109,7 +111,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
     private void dialogSua() {
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_confirm_sua);
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
         //tắt click ngoài là thoát
         dialog.setCanceledOnTouchOutside(false);

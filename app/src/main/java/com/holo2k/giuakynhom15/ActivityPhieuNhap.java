@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.holo2k.giuakynhom15.adapter.DSPhieuNhapAdapter;
@@ -81,7 +83,7 @@ public class ActivityPhieuNhap extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(ActivityPhieuNhap.this, ActivityThemPhieuNhap.class);
-                startActivity(intent);
+                startActivityForResult(intent, 5);
             }
         });
     }
@@ -101,5 +103,13 @@ public class ActivityPhieuNhap extends AppCompatActivity {
         lvDSPhieu.setAdapter(phieuNhapAdapter);
     }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 5){
+            if (resultCode == 1){
+                showDBPhieuNhap();
+            }
+        }
+    }
 }
