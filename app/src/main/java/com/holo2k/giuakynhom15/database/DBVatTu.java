@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
 import android.os.Build;
 
 import androidx.annotation.Nullable;
@@ -48,6 +49,7 @@ public class DBVatTu extends SQLiteOpenHelper {
     private static final String MAVT = "MAVT";
     private static final String TENVT = "TENVT";
     private static final String XUATXU = "XUATXU";
+    private static final String HINHANH = "HINHANH";
 
     //Tạo bảng KHO
     private String createTableKho = "CREATE TABLE " + KHO + " ( " + MAKHO + " INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -56,7 +58,7 @@ public class DBVatTu extends SQLiteOpenHelper {
     //Tạo bảng VATTU
     private String createTableVatTu = "CREATE TABLE " + VATTU + " ( " + MAVT + " TEXT PRIMARY KEY , "
             + TENVT + " TEXT, "
-            + XUATXU + " TEXT) ";
+            + XUATXU + " TEXT, " + HINHANH + " BLOB)";
 
     //Tạo bảng PHIEUNHAP
     private String createTablePhieuNhap = "CREATE TABLE " + PHIEUNHAP + " ( " + SOPHIEU + " TEXT PRIMARY KEY , "
@@ -182,12 +184,14 @@ public class DBVatTu extends SQLiteOpenHelper {
     public void themVatTu(VatTu vatTu) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(MAVT, vatTu.getMaVatTu());
-        values.put(TENVT, vatTu.getTenVatTu());
-        values.put(XUATXU, vatTu.getXuatXu());
-
-        db.insert(VATTU, null, values);
+        String sql = "INSERT INTO VATTU VALUES(?,?,?,?)";
+        SQLiteStatement statement = db.compileStatement(sql);
+        statement.clearBindings();
+        statement.bindString(0, vatTu.getMaVatTu());
+        statement.bindString(1, vatTu.getTenVatTu());
+        statement.bindString(2, vatTu.getXuatXu());
+        statement.bindBlob(3, vatTu.getHinhAnh());
+        statement.executeInsert();
         db.close();
     }
 

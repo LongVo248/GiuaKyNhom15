@@ -5,9 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -25,16 +29,26 @@ import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.VatTu;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class ActivityVatTu extends AppCompatActivity {
     ListView lvDSVatTu;
     Button btnThemVatTu, btnThongKeVatTu;
-    ImageView imgThoatVatTu;
+    ImageView imgThoatVatTu, imgShowCamera, imgShowFolder, imgHinhVatTu;
     ArrayList<VatTu> vatTuArrayList = new ArrayList<>();
     VatTuAdapter vatTuAdapter;
     DBVatTu dbVatTu;
     EditText editSearch;
+    Button btnThemVatTuDialog;
+    ImageView imgThoatThemVatTu;
+    EditText editThemMaVatTu;
+    EditText editThemTenVatTu;
+    EditText editThemXuatXu;
+    Dialog dialog;
+    public static int CODE_CAMERA = 1234;
+    public static int CODE_FOLDER = 1134;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +99,7 @@ public class ActivityVatTu extends AppCompatActivity {
     }
 
     private void dialogThemVatTu() {
-        Dialog dialog = new Dialog(this);
+        dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_them_vat_tu);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
@@ -93,12 +107,32 @@ public class ActivityVatTu extends AppCompatActivity {
 
         dialog.setCanceledOnTouchOutside(false);
 
-        Button btnThemVatTu = dialog.findViewById(R.id.btnThemVatTuChiTiet);
-        ImageView imgThoatThemVatTu = dialog.findViewById(R.id.imgThoatThemVatTu);
-        EditText editThemMaVatTu = dialog.findViewById(R.id.editThemMaVatTu);
-        EditText editThemTenVatTu = dialog.findViewById(R.id.editThemTenVatTu);
-        EditText editThemXuatXu = dialog.findViewById(R.id.editThemXuatXu);
-        btnThemVatTu.setOnClickListener(new View.OnClickListener() {
+        btnThemVatTuDialog = dialog.findViewById(R.id.btnThemVatTuChiTiet);
+        imgThoatThemVatTu = dialog.findViewById(R.id.imgThoatThemVatTu);
+        editThemMaVatTu = dialog.findViewById(R.id.editThemMaVatTu);
+        editThemTenVatTu = dialog.findViewById(R.id.editThemTenVatTu);
+        editThemXuatXu = dialog.findViewById(R.id.editThemXuatXu);
+        imgShowCamera = dialog.findViewById(R.id.img_show_camera);
+        imgShowFolder = dialog.findViewById(R.id.img_show_folder);
+        imgHinhVatTu = dialog.findViewById(R.id.img_hinh_vat_tu);
+        imgShowCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CODE_CAMERA);
+            }
+        });
+        imgShowFolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, CODE_FOLDER);
+            }
+        });
+        btnThemVatTuDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 VatTu vatTu = new VatTu();
@@ -170,5 +204,42 @@ public class ActivityVatTu extends AppCompatActivity {
                 showDB();
             }
         }
+
+        if (requestCode == CODE_CAMERA) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    imgHinhVatTu.setImageBitmap(bitmap);
+                    dialog.show();
+                } else {
+                    dialog.show();
+                }
+
+            } else {
+                dialog.show();
+            }
+        }
+        if (requestCode == CODE_FOLDER) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
+                    Uri uri = data.getData();
+                    try {
+                        InputStream inputStream = getContentResolver().openInputStream(uri);
+                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                        imgHinhVatTu.setImageBitmap(bitmap);
+                        dialog.show();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    dialog.show();
+
+                }
+
+            } else {
+                dialog.show();
+            }
+        }
+
     }
 }

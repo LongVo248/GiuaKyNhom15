@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    android:layout_width="370dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@drawable/background_confirm"
@@ -14,8 +14,8 @@
         android:layout_height="20dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:srcCompat="@drawable/ic_x_thoat"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/todo"
+        app:srcCompat="@drawable/ic_x_thoat" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,10 +49,10 @@
                 android:id="@+id/editThemMaVatTu"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
+                android:hint="Nhập mã vật tư"
                 android:importantForAutofill="no"
-                android:hint="Nhập mã vật tư"/>
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -72,10 +72,10 @@
                 android:id="@+id/editThemTenVatTu"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
                 android:hint="Nhập tên vật tư"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -95,11 +95,46 @@
                 android:id="@+id/editThemXuatXu"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
                 android:hint="Nhập xuất xứ"
-                android:importantForAutofill="no"/>
+                android:importantForAutofill="no"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:id="@+id/img_hinh_vat_tu"
+                android:src="@drawable/ic_no_image">
+
+            </ImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/img_show_camera"
+                    android:layout_width="80dp"
+                    android:layout_height="70dp"
+                    android:layout_marginRight="60dp"
+                    android:src="@drawable/ic_camera" />
+
+                <ImageView
+                    android:id="@+id/img_show_folder"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/ic_folder" />
+            </LinearLayout>
         </LinearLayout>
 
         <Button

@@ -72,14 +72,6 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnChiTietPhieu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/background_button"
-            android:text="Chi tiết" />
-
-        <Button
             android:id="@+id/btnThemPhieu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

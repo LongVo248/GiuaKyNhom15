@@ -12,19 +12,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.holo2k.giuakynhom15.ActivityChiTietPhieuNhap;
 import com.holo2k.giuakynhom15.ActivityThemPhieuNhap;
 import com.holo2k.giuakynhom15.R;
 import com.holo2k.giuakynhom15.model.VatTu;
 
 import java.util.ArrayList;
 
-public class ChonVatTuAdapter extends ArrayAdapter<VatTu> {
+public class ChonVatTuChiTietPhieuAdapter extends ArrayAdapter<VatTu> {
     Context context;
     int resource;
     ArrayList<VatTu> vatTuArrayList;
 
 
-    public ChonVatTuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VatTu> objects) {
+    public ChonVatTuChiTietPhieuAdapter(@NonNull Context context, int resource, @NonNull ArrayList<VatTu> objects) {
         super(context, resource, objects);
         this.context = context;
         this.resource = resource;
@@ -48,7 +49,7 @@ public class ChonVatTuAdapter extends ArrayAdapter<VatTu> {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (checkBox.isChecked()){
-                    ActivityThemPhieuNhap.viTriCB.add(vatTuArrayList.get(position));
+                    ActivityChiTietPhieuNhap.viTriCB.add(vatTuArrayList.get(position));
                 }
             }
         });

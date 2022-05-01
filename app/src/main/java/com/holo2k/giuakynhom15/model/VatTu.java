@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class VatTu implements Serializable {
    private String maVatTu, tenVatTu, xuatXu;
+   byte[] hinhAnh;
 
     public VatTu() {
     }
@@ -17,6 +18,13 @@ public class VatTu implements Serializable {
         this.maVatTu = maVatTu;
         this.tenVatTu = tenVatTu;
         this.xuatXu = xuatXu;
+    }
+
+    public VatTu(String maVatTu, String tenVatTu, String xuatXu, byte[] hinhAnh) {
+        this.maVatTu = maVatTu;
+        this.tenVatTu = tenVatTu;
+        this.xuatXu = xuatXu;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaVatTu() {
@@ -41,5 +49,13 @@ public class VatTu implements Serializable {
 
     public void setXuatXu(String xuatXu) {
         this.xuatXu = xuatXu;
+    }
+
+    public byte[] getHinhAnh() {
+        return hinhAnh;
+    }
+
+    public void setHinhAnh(byte[] hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 }

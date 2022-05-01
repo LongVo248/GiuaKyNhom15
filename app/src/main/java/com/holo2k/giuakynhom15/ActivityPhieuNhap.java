@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class ActivityPhieuNhap extends AppCompatActivity {
     ListView lvDSPhieu;
-    Button btnChiTietPhieu;
     Button btnThemPhieu;
     ImageView imgThoat;
     ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
@@ -41,7 +40,6 @@ public class ActivityPhieuNhap extends AppCompatActivity {
 
     private void setControls() {
         lvDSPhieu = findViewById(R.id.lvDSPhieu);
-        btnChiTietPhieu = findViewById(R.id.btnChiTietPhieu);
         btnThemPhieu = findViewById(R.id.btnThemPhieu);
         imgThoat = findViewById(R.id.imgThoatPhieuNhap);
         edSearch = findViewById(R.id.editSearchDSPhieu);

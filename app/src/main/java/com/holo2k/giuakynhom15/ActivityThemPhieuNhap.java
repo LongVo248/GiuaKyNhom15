@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckedTextView;
@@ -22,9 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.holo2k.giuakynhom15.adapter.ChonVatTuAdapter;
+import com.holo2k.giuakynhom15.adapter.ChonVatTuThemPhieuAdapter;
 import com.holo2k.giuakynhom15.adapter.KhoItemSniperAdapter;
-import com.holo2k.giuakynhom15.adapter.VatTuAdapter;
 import com.holo2k.giuakynhom15.adapter.VatTuPhieuNhapAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.Kho;
@@ -40,7 +38,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
     Spinner spKho;
     Kho kho;
     ArrayList<VatTu> vatTus = new ArrayList<>();
-    ChonVatTuAdapter chonVatTuAdapter;
+    ChonVatTuThemPhieuAdapter chonVatTuAdapter;
     EditText editTenKhoChiTiet;
     TextView tvNgayNhapPhieu;
     ListView lvDSVatTuPhieu;
@@ -186,7 +184,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         lvChonVatTu = dialog.findViewById(R.id.lvChonVatTu);
         btnThemVTPN = dialog.findViewById(R.id.btnThemVTPN);
         imgThoatChonVT = dialog.findViewById(R.id.imgThoatChonVTTrongPhieu);
-        chonVatTuAdapter = new ChonVatTuAdapter(dialog.getContext(), R.layout.item_vat_tu_check_box, vatTus);
+        chonVatTuAdapter = new ChonVatTuThemPhieuAdapter(dialog.getContext(), R.layout.item_vat_tu_check_box, vatTus);
         lvChonVatTu.setAdapter(chonVatTuAdapter);
         lvChonVatTu.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         lvChonVatTu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -196,7 +194,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 boolean currentCheck = v.isChecked();
             }
         });
-        imgThoat.setOnClickListener(new View.OnClickListener() {
+        imgThoatChonVT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialog.cancel();
