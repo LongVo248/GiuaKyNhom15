@@ -6,7 +6,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -16,6 +23,11 @@ import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
 import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,7 +70,7 @@ public class DBVatTu extends SQLiteOpenHelper {
     //Tạo bảng VATTU
     private String createTableVatTu = "CREATE TABLE " + VATTU + " ( " + MAVT + " TEXT PRIMARY KEY , "
             + TENVT + " TEXT, "
-            + XUATXU + " TEXT, " + HINHANH + " BLOB)";
+            + XUATXU + " TEXT, URI TEXT)";
 
     //Tạo bảng PHIEUNHAP
     private String createTablePhieuNhap = "CREATE TABLE " + PHIEUNHAP + " ( " + SOPHIEU + " TEXT PRIMARY KEY , "
@@ -114,6 +126,17 @@ public class DBVatTu extends SQLiteOpenHelper {
             return false;
         }
     }
+
+    public byte[] chuyenHinhAnhSangByte(ImageView imgVT) {
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imgVT.getDrawable();
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 75, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
+
+
+
 
     public ArrayList<Kho> getAllKho() {
         ArrayList<Kho> khoArrayList = new ArrayList<>();
@@ -187,10 +210,10 @@ public class DBVatTu extends SQLiteOpenHelper {
         String sql = "INSERT INTO VATTU VALUES(?,?,?,?)";
         SQLiteStatement statement = db.compileStatement(sql);
         statement.clearBindings();
-        statement.bindString(0, vatTu.getMaVatTu());
-        statement.bindString(1, vatTu.getTenVatTu());
-        statement.bindString(2, vatTu.getXuatXu());
-        statement.bindBlob(3, vatTu.getHinhAnh());
+        statement.bindString(1, vatTu.getMaVatTu());
+        statement.bindString(2, vatTu.getTenVatTu());
+        statement.bindString(3, vatTu.getXuatXu());
+        statement.bindString(4, vatTu.getUri().toString());
         statement.executeInsert();
         db.close();
     }
@@ -214,18 +237,15 @@ public class DBVatTu extends SQLiteOpenHelper {
         String getAllVatTu = "SELECT * FROM " + VATTU;
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(getAllVatTu, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            String maVatTu;
-            String tenVatTu;
-            String xuatXu;
-            maVatTu = cursor.getString(0);
-            tenVatTu = cursor.getString(1);
-            xuatXu = cursor.getString(2);
-            VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu);
-            vatTuArrayList.add(vatTu);
-            cursor.moveToNext();
+        while (cursor.moveToNext()) {
+            vatTuArrayList.add(
+                    new VatTu(
+                            cursor.getString(0),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            Uri.parse(cursor.getString(3))));
         }
+        cursor.close();
         return vatTuArrayList;
     }
 
@@ -244,7 +264,8 @@ public class DBVatTu extends SQLiteOpenHelper {
                 maVatTu = cursor.getString(0);
                 tenVatTu = cursor.getString(1);
                 xuatXu = cursor.getString(2);
-                VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu);
+                byte[] hinhAnh = cursor.getBlob(3);
+                VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu, hinhAnh);
                 vatTuArrayList.add(vatTu);
                 cursor.moveToNext();
             }
@@ -294,6 +315,14 @@ public class DBVatTu extends SQLiteOpenHelper {
         String query = "delete from " + table.toUpperCase(Locale.ROOT);
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL(query);
+    }
+
+    public void dropVatTu() {
+        String query = "drop table vattu";
+        String query2 = createTableVatTu;
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(query);
+        db.execSQL(query2);
     }
 
     public ArrayList<PhieuNhap> getAllPhieuNhap() {

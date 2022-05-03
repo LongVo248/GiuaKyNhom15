@@ -23,7 +23,6 @@ public class ActivityChiTietKho extends AppCompatActivity {
     ImageView imgThoat;
     TextView tvMaKhoChiTiet;
     EditText editTenKhoChiTiet;
-    DBVatTu dbChiTietKho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,6 @@ public class ActivityChiTietKho extends AppCompatActivity {
 
     private void setEvents() {
         layDL();
-        dbChiTietKho = new DBVatTu(ActivityChiTietKho.this);
         imgThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,7 +92,7 @@ public class ActivityChiTietKho extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.cancel();
-                showXoaKhongThanhCong(dbChiTietKho.deleteKho(ActivityChiTietKho.this.kho.getMaKho()));
+                showXoaKhongThanhCong(MainActivity.dbVatTu.deleteKho(ActivityChiTietKho.this.kho.getMaKho()));
             }
         });
 
@@ -121,7 +119,7 @@ public class ActivityChiTietKho extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.cancel();
                 kho = new Kho(kho.getMaKho(), editTenKhoChiTiet.getText().toString());
-                showSuaKhongThanhCong(dbChiTietKho.capNhatKho(kho));
+                showSuaKhongThanhCong(MainActivity.dbVatTu.capNhatKho(kho));
             }
         });
 

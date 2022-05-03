@@ -35,70 +35,58 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/ma_vat_tu_dialog"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputThemMaVT"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editThemMaVatTu"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Nhập mã vật tư"
-                android:importantForAutofill="no"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/editThemMaVatTu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Nhập mã vật tư" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/ten_vat_tu_dialog"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputThemTenVT"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editThemTenVatTu"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Nhập tên vật tư"
-                android:importantForAutofill="no"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/editThemTenVatTu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Nhập tên vật tư" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:text="@string/xuat_xu_dialog"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputThemXuatXu"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editThemXuatXu"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:hint="Nhập xuất xứ"
-                android:importantForAutofill="no"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                <EditText
+                    android:id="@+id/editThemXuatXu"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:hint="Nhập xuất xứ" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
@@ -110,9 +98,9 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/img_hinh_vat_tu"
                 android:layout_width="250dp"
                 android:layout_height="200dp"
-                android:id="@+id/img_hinh_vat_tu"
                 android:src="@drawable/ic_no_image">
 
             </ImageView>

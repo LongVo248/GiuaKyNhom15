@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -23,29 +24,34 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.holo2k.giuakynhom15.adapter.KhoAdapter;
 import com.holo2k.giuakynhom15.adapter.VatTuAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
+import com.holo2k.giuakynhom15.error.CheckError;
 import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.VatTu;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class ActivityVatTu extends AppCompatActivity {
     ListView lvDSVatTu;
-    Button btnThemVatTu, btnThongKeVatTu;
+    String uriAnhVT;
+    Button btnThemVatTu;
     ImageView imgThoatVatTu, imgShowCamera, imgShowFolder, imgHinhVatTu;
     ArrayList<VatTu> vatTuArrayList = new ArrayList<>();
     VatTuAdapter vatTuAdapter;
-    DBVatTu dbVatTu;
     EditText editSearch;
     Button btnThemVatTuDialog;
     ImageView imgThoatThemVatTu;
     EditText editThemMaVatTu;
     EditText editThemTenVatTu;
     EditText editThemXuatXu;
+    TextInputLayout txtInputThemMaVT, txtInputThemTenVatTu, txtInputThemXuatXu;
     Dialog dialog;
     public static int CODE_CAMERA = 1234;
     public static int CODE_FOLDER = 1134;
@@ -86,7 +92,13 @@ public class ActivityVatTu extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityVatTu.this, ActivityChiTietVatTu.class);
-                intent.putExtra("chitietvattu", vatTuArrayList.get(i));
+                Bundle bundle = new Bundle();
+                bundle.putString("chitietvattumavt", vatTuArrayList.get(i).getMaVatTu());
+                bundle.putString("chitietvattutenvt", vatTuArrayList.get(i).getTenVatTu());
+                bundle.putString("chitietvattuxxvt", vatTuArrayList.get(i).getXuatXu());
+                bundle.putByteArray("chitietvattuhinhanhvt", vatTuArrayList.get(i).getHinhAnh());
+//                intent.putExtra("chitietvattu", vatTuArrayList.get(i));
+                intent.putExtras(bundle);
                 startActivityForResult(intent, 2);
             }
         });
@@ -105,8 +117,11 @@ public class ActivityVatTu extends AppCompatActivity {
         dialog.show();
         //tắt click ngoài là thoát'
 
-        dialog.setCanceledOnTouchOutside(false);
 
+        dialog.setCanceledOnTouchOutside(false);
+        txtInputThemMaVT = dialog.findViewById(R.id.txtInputThemMaVT);
+        txtInputThemTenVatTu = dialog.findViewById(R.id.txtInputThemTenVT);
+        txtInputThemXuatXu = dialog.findViewById(R.id.txtInputThemXuatXu);
         btnThemVatTuDialog = dialog.findViewById(R.id.btnThemVatTuChiTiet);
         imgThoatThemVatTu = dialog.findViewById(R.id.imgThoatThemVatTu);
         editThemMaVatTu = dialog.findViewById(R.id.editThemMaVatTu);
@@ -115,6 +130,26 @@ public class ActivityVatTu extends AppCompatActivity {
         imgShowCamera = dialog.findViewById(R.id.img_show_camera);
         imgShowFolder = dialog.findViewById(R.id.img_show_folder);
         imgHinhVatTu = dialog.findViewById(R.id.img_hinh_vat_tu);
+        editThemMaVatTu.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editThemMaVatTu.getText().toString().length() > 6) {
+                    txtInputThemMaVT.setError("Mã vật tư không quá 6 kí tự");
+                } else {
+                    txtInputThemMaVT.setError(null);
+                }
+            }
+        });
         imgShowCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,25 +162,38 @@ public class ActivityVatTu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.cancel();
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, CODE_FOLDER);
+
+                Intent chooseFileIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                chooseFileIntent.setType("*/*");
+                // Only return URIs that can be opened with ContentResolver
+                chooseFileIntent.addCategory(Intent.CATEGORY_OPENABLE);
+                chooseFileIntent = Intent.createChooser(chooseFileIntent, "Choose a file");
+                chooseFileIntent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                chooseFileIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivityForResult(chooseFileIntent, CODE_FOLDER);
             }
         });
         btnThemVatTuDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VatTu vatTu = new VatTu();
-                vatTu.setMaVatTu(editThemMaVatTu.getText().toString());
-                vatTu.setXuatXu(editThemXuatXu.getText().toString());
-                vatTu.setTenVatTu(editThemTenVatTu.getText().toString());
-                dbVatTu.themVatTu(vatTu);
-                dialog.cancel();
-                getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                );
-                Toast.makeText(ActivityVatTu.this, "Thêm vật tư thành công", Toast.LENGTH_LONG).show();
-                showDB();
+                if (CheckError.checkEmptyEditText(editThemMaVatTu, txtInputThemMaVT) &&
+                        CheckError.checkEmptyEditText(editThemTenVatTu, txtInputThemTenVatTu) &&
+                        CheckError.checkEmptyEditText(editThemXuatXu, txtInputThemXuatXu)
+                ) {
+                    VatTu vatTu = new VatTu();
+                    vatTu.setMaVatTu(editThemMaVatTu.getText().toString().toUpperCase(Locale.ROOT));
+                    vatTu.setXuatXu(editThemXuatXu.getText().toString());
+                    vatTu.setTenVatTu(editThemTenVatTu.getText().toString());
+                    vatTu.setHinhAnh(MainActivity.dbVatTu.chuyenHinhAnhSangByte(imgHinhVatTu));
+//                    vatTu.setUri(uriAnhVT);
+                    MainActivity.dbVatTu.themVatTu(vatTu);
+                    dialog.cancel();
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    );
+                    Toast.makeText(ActivityVatTu.this, "Thêm vật tư thành công", Toast.LENGTH_LONG).show();
+                    showDB();
+                }
             }
         });
 
@@ -158,15 +206,13 @@ public class ActivityVatTu extends AppCompatActivity {
     }
 
     public void showResultSearch(String data) {
-        dbVatTu = new DBVatTu(ActivityVatTu.this);
-        vatTuArrayList = dbVatTu.searchVatTu(data);
+        vatTuArrayList = MainActivity.dbVatTu.searchVatTu(data);
         vatTuAdapter = new VatTuAdapter(this, R.layout.item_vattu, vatTuArrayList);
         lvDSVatTu.setAdapter(vatTuAdapter);
     }
 
     private void showDB() {
-        dbVatTu = new DBVatTu(ActivityVatTu.this);
-        vatTuArrayList = dbVatTu.getAllVatTu();
+        vatTuArrayList = MainActivity.dbVatTu.getAllVatTu();
         vatTuAdapter = new VatTuAdapter(this, R.layout.item_vattu, vatTuArrayList);
         lvDSVatTu.setAdapter(vatTuAdapter);
     }
@@ -174,7 +220,6 @@ public class ActivityVatTu extends AppCompatActivity {
     private void setControls() {
         lvDSVatTu = findViewById(R.id.lvDSVatTu);
         btnThemVatTu = findViewById(R.id.btnThemVatTu);
-        btnThongKeVatTu = findViewById(R.id.btnThongKeVatTu);
         imgThoatVatTu = findViewById(R.id.imgThoatVatTu);
         editSearch = findViewById(R.id.editSearch);
     }
@@ -222,15 +267,13 @@ public class ActivityVatTu extends AppCompatActivity {
         if (requestCode == CODE_FOLDER) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    Uri uri = data.getData();
-                    try {
-                        InputStream inputStream = getContentResolver().openInputStream(uri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        imgHinhVatTu.setImageBitmap(bitmap);
-                        dialog.show();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    uriAnhVT = new StringBuilder().append("/storage/emulated/0/").append(data.getData().getPath().substring("/document/primary:".length())).toString();
+
+                    System.out.println("\n\n\n\n" + uriAnhVT + "\n\n\n");
+                    File file = new File(uriAnhVT);
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    imgHinhVatTu.setImageBitmap(bitmap);
+                    dialog.show();
                 } else {
                     dialog.show();
 

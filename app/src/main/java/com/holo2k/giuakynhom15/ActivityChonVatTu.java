@@ -29,7 +29,6 @@ public class ActivityChonVatTu extends AppCompatActivity {
     ImageView imgThoatVatTu;
     ArrayList<VatTu> vatTuArrayList = new ArrayList<>();
     VatTuAdapter vatTuAdapter;
-    DBVatTu dbVatTu;
     EditText editSearch;
     VatTuPhieuNhap vatTuPhieuNhap;
     @Override
@@ -82,15 +81,13 @@ public class ActivityChonVatTu extends AppCompatActivity {
     }
 
     public void showResultSearch(String data) {
-        dbVatTu = new DBVatTu(ActivityChonVatTu.this);
-        vatTuArrayList = dbVatTu.searchVatTu(data);
+        vatTuArrayList = MainActivity.dbVatTu.searchVatTu(data);
         vatTuAdapter = new VatTuAdapter(this, R.layout.item_vattu, vatTuArrayList);
         lvDSVatTu.setAdapter(vatTuAdapter);
     }
 
     private void showDB() {
-        dbVatTu = new DBVatTu(ActivityChonVatTu.this);
-        vatTuArrayList = dbVatTu.getAllVatTu();
+        vatTuArrayList = MainActivity.dbVatTu.getAllVatTu();
         vatTuAdapter = new VatTuAdapter(this, R.layout.item_vattu, vatTuArrayList);
         lvDSVatTu.setAdapter(vatTuAdapter);
     }

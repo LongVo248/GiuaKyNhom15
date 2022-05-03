@@ -27,7 +27,6 @@ public class ActivityPhieuNhap extends AppCompatActivity {
     ImageView imgThoat;
     ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
     DSPhieuNhapAdapter phieuNhapAdapter;
-    DBVatTu dbPhieuNhap;
     EditText edSearch;
 
     @Override
@@ -88,15 +87,13 @@ public class ActivityPhieuNhap extends AppCompatActivity {
 
 
     public void showDBPhieuNhap() {
-        dbPhieuNhap = new DBVatTu(ActivityPhieuNhap.this);
-        phieuNhapArrayList = dbPhieuNhap.getAllPhieuNhap();
+        phieuNhapArrayList = MainActivity.dbVatTu.getAllPhieuNhap();
         phieuNhapAdapter = new DSPhieuNhapAdapter(this, R.layout.item_phieu_nhap, phieuNhapArrayList);
         lvDSPhieu.setAdapter(phieuNhapAdapter);
     }
 
     public void showResultSearchPhieuNhap(String data) {
-        dbPhieuNhap = new DBVatTu(ActivityPhieuNhap.this);
-        phieuNhapArrayList = dbPhieuNhap.searchPhieuNhap(data);
+        phieuNhapArrayList = MainActivity.dbVatTu.searchPhieuNhap(data);
         phieuNhapAdapter = new DSPhieuNhapAdapter(this, R.layout.item_phieu_nhap, phieuNhapArrayList);
         lvDSPhieu.setAdapter(phieuNhapAdapter);
     }

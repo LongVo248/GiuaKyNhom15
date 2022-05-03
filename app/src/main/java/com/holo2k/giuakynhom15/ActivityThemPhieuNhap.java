@@ -34,22 +34,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ActivityThemPhieuNhap extends AppCompatActivity {
-    TextView tvMaPhieuThemPhieu;
     Spinner spKho;
     Kho kho;
     ArrayList<VatTu> vatTus = new ArrayList<>();
     ChonVatTuThemPhieuAdapter chonVatTuAdapter;
     EditText editTenKhoChiTiet;
-    TextView tvNgayNhapPhieu;
-    ListView lvDSVatTuPhieu;
-    ImageView imgCalendar, imgThoat;
-    Button btnLuuPhieu, btnThemVTThemPhieu, btnDatLai;
+    TextView tvNgayNhapPhieu, tvMaPhieuThemPhieu;
+    ListView lvDSVatTuPhieu, lvChonVatTu;
+    ImageView imgCalendar, imgThoat, imgThoatChonVT;
+    Button btnLuuPhieu, btnThemVTThemPhieu, btnDatLai, btnThemVTPN;
     VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
-    DBVatTu dbChiTietPhieu = new DBVatTu(this);
     Dialog dialog;
-    ListView lvChonVatTu;
-    Button btnThemVTPN;
-    ImageView imgThoatChonVT;
     public static ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
     public static ArrayList<VatTu> viTriCB = new ArrayList<>();
 
@@ -75,7 +70,7 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
     }
 
     private void setEvents() {
-        vatTus = dbChiTietPhieu.getAllVatTu();
+        vatTus = MainActivity.dbVatTu.getAllVatTu();
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -93,7 +88,6 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 .append(calendar.get(Calendar.MILLISECOND)).toString();
         tvMaPhieuThemPhieu.setText(maPhieuNhapTuDong);
         tvNgayNhapPhieu.setText(ngayNhap);
-        dbChiTietPhieu = new DBVatTu(this);
         KhoItemSniperAdapter khoItemSniperAdapter = new KhoItemSniperAdapter(this, R.layout.item_selected, getAllKho());
         spKho.setAdapter(khoItemSniperAdapter);
         spKho.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -138,18 +132,6 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 }
             }
         });
-
-        btnLuuPhieu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PhieuNhap phieuNhap = new PhieuNhap();
-                phieuNhap.setNgayNhapPhieu(tvNgayNhapPhieu.getText().toString());
-                phieuNhap.setMaKho(kho.getMaKho());
-                dbChiTietPhieu.themPhieunhap(phieuNhap);
-                Intent intent = new Intent(ActivityThemPhieuNhap.this, ActivityPhieuNhap.class);
-                startActivity(intent);
-            }
-        });
         btnLuuPhieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,12 +139,11 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 phieuNhap.setMaPhieuNhap(tvMaPhieuThemPhieu.getText().toString());
                 phieuNhap.setNgayNhapPhieu(tvNgayNhapPhieu.getText().toString());
                 phieuNhap.setMaKho(kho.getMaKho());
-                dbChiTietPhieu.themPhieunhap(phieuNhap);
+                MainActivity.dbVatTu.themPhieunhap(phieuNhap);
 
                 if (vatTuPhieuNhaps.size() != 0 || vatTuPhieuNhaps != null) {
-                    System.out.println("\n\n\n\nthem duoc vat tu roi ne\n\n\n");
                     for (VatTuPhieuNhap vatTuPhieuNhap : vatTuPhieuNhaps) {
-                        dbChiTietPhieu.themChiTietPhieuNhap(phieuNhap.getMaPhieuNhap(), vatTuPhieuNhap);
+                        MainActivity.dbVatTu.themChiTietPhieuNhap(phieuNhap.getMaPhieuNhap(), vatTuPhieuNhap);
                     }
                 }
                 Intent intent = new Intent();
@@ -219,14 +200,15 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
         vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhaps);
         lvDSVatTuPhieu.setAdapter(vatTuPhieuNhapAdapter);
     }
-    public void xoaVTDaChon(ArrayList<VatTu> viTri){
+
+    public void xoaVTDaChon(ArrayList<VatTu> viTri) {
         for (VatTu vt : viTri) {
             vatTus.remove(vt);
         }
     }
 
     public ArrayList<Kho> getAllKho() {
-        return dbChiTietPhieu.getAllKho();
+        return MainActivity.dbVatTu.getAllKho();
     }
 
 

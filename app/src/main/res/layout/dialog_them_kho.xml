@@ -34,25 +34,20 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputThemMaKho"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="14dp"
-                android:text="@string/ten_kho_dialog"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/editThemTenKho"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:importantForAutofill="no"
-                android:hint="Nhập tên kho"/>
+                android:layout_height="wrap_content">
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/editThemTenKho"
+                    android:textSize="20dp"
+                    android:hint="Nhập tên kho"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

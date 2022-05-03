@@ -1,8 +1,5 @@
 package com.holo2k.giuakynhom15;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,16 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.holo2k.giuakynhom15.adapter.ChonVatTuChiTietPhieuAdapter;
-import com.holo2k.giuakynhom15.adapter.ChonVatTuThemPhieuAdapter;
 import com.holo2k.giuakynhom15.adapter.VatTuPhieuNhapAdapter;
-import com.holo2k.giuakynhom15.database.DBVatTu;
 import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
 import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
@@ -28,15 +25,13 @@ import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 import java.util.ArrayList;
 
 public class ActivityChiTietPhieuNhap extends AppCompatActivity {
-    Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap;
+    Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap, btnThemVTPN, btnLuuPhieuChiTiet;
     TextView tvNgayNhapPhieuChiTiet, tvMaPhieuChiTiet, tvTenKhoPhieuNhapChiTiet;
     ImageView imgThoatPhieuNhapChiTiet;
     ListView lvDSVatTuChiTietPhieu;
     VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
-    DBVatTu dbChiTietPhieuNhap = new DBVatTu(this);
     Dialog dialog;
     ListView lvChonVatTu;
-    Button btnThemVTPN;
     ChonVatTuChiTietPhieuAdapter chonVatTuAdapter;
     ImageView imgThoatChonVT;
     ArrayList<VatTu> vatTus = new ArrayList<>();
@@ -70,6 +65,12 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
                 }
             }
         });
+        btnLuuPhieuChiTiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -86,11 +87,11 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
 
     public void layDL() {
         PhieuNhap phieuNhap = (PhieuNhap) getIntent().getSerializableExtra("chitietphieunhap");
-        tvTenKhoPhieuNhapChiTiet.setText(dbChiTietPhieuNhap.getTenKhotrongChiTietPhieuNhap(phieuNhap.getMaKho()));
+        tvTenKhoPhieuNhapChiTiet.setText(MainActivity.dbVatTu.getTenKhotrongChiTietPhieuNhap(phieuNhap.getMaKho()));
         tvMaPhieuChiTiet.setText(phieuNhap.getMaPhieuNhap());
         tvNgayNhapPhieuChiTiet.setText(phieuNhap.getNgayNhapPhieu());
-        vatTuPhieuNhaps = dbChiTietPhieuNhap.getChiTietPhieuNhap(phieuNhap.getMaPhieuNhap());
-        vatTus = dbChiTietPhieuNhap.getAllVatTu();
+        vatTuPhieuNhaps = MainActivity.dbVatTu.getChiTietPhieuNhap(phieuNhap.getMaPhieuNhap());
+        vatTus = MainActivity.dbVatTu.getAllVatTu();
         vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhaps);
         lvDSVatTuChiTietPhieu.setAdapter(vatTuPhieuNhapAdapter);
         btnThemVTChiTietPhieuNhap.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +110,7 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
         tvTenKhoPhieuNhapChiTiet = findViewById(R.id.tvTenKhoPhieuNhapChiTiet);
         imgThoatPhieuNhapChiTiet = findViewById(R.id.imgThoatPhieuNhapChiTiet);
         lvDSVatTuChiTietPhieu = findViewById(R.id.lvDSVatTuChiTietPhieu);
+        btnLuuPhieuChiTiet = findViewById(R.id.btnLuuPhieuChiTiet);
     }
 
     public void layDLVT(Intent data) {

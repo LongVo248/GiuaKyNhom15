@@ -24,7 +24,6 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
     ImageView imgThoat;
     TextView tvMaVatTuChiTiet;
     EditText editTenVatTuChiTiet , editXuatXuChiTiet;
-    DBVatTu dbChiTietVatTu;
 
 
     @Override
@@ -37,7 +36,6 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
 
     private void setEvents() {
         layDL();
-        dbChiTietVatTu = new DBVatTu(ActivityChiTietVatTu.this);
         imgThoat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +94,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialog.cancel();
-                showXoaKhongThanhCong(dbChiTietVatTu.deleteVatTu(ActivityChiTietVatTu.this.vatTu.getMaVatTu()));
+                showXoaKhongThanhCong(MainActivity.dbVatTu.deleteVatTu(ActivityChiTietVatTu.this.vatTu.getMaVatTu()));
             }
         });
 
@@ -124,7 +122,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
             public void onClick(View view) {
                 dialog.cancel();
                 vatTu = new VatTu(vatTu.getMaVatTu(), editTenVatTuChiTiet.getText().toString(), editXuatXuChiTiet.getText().toString());
-                showSuaKhongThanhCong(dbChiTietVatTu.capNhatVatTu(vatTu));
+                showSuaKhongThanhCong(MainActivity.dbVatTu.capNhatVatTu(vatTu));
             }
         });
 
@@ -138,7 +136,16 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
     }
 
     private void layDL() {
-        vatTu = (VatTu) getIntent().getSerializableExtra("chitietvattu");
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            vatTu = new VatTu();
+            vatTu.setMaVatTu(bundle.getString("chitietvattumavt"));
+            vatTu.setTenVatTu(bundle.getString("chitietvattutenvt"));
+            vatTu.setXuatXu(bundle.getString("chitietvattuxxvt"));
+            vatTu.setHinhAnh(bundle.getByteArray("chitietvattuhinhanhvt"));
+        }
+//        vatTu = (VatTu) getIntent().getSerializableExtra("chitietvattu");
         tvMaVatTuChiTiet.setText(String.valueOf(vatTu.getMaVatTu()));
         editTenVatTuChiTiet.setText(vatTu.getTenVatTu());
         editXuatXuChiTiet.setText(vatTu.getXuatXu());

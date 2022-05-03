@@ -21,20 +21,22 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
 import com.holo2k.giuakynhom15.adapter.KhoAdapter;
 import com.holo2k.giuakynhom15.database.DBVatTu;
+import com.holo2k.giuakynhom15.error.CheckError;
 import com.holo2k.giuakynhom15.model.Kho;
 
 import java.util.ArrayList;
 
 public class ActivityKho extends AppCompatActivity {
     ListView lvDSKho;
-    Button btnThemKho, btnThongKeKho;
-    ImageView imgThoatKho;
+    Button btnThemKho, btnThongKeKho, btnThemKhoDialog;
+    ImageView imgThoatKho, imgThoatThemKho;
     ArrayList<Kho> khoArrayList = new ArrayList<>();
     KhoAdapter khoAdapter;
-    DBVatTu dbKho;
-    EditText editSearch;
+    EditText editSearch, editThemTenKho;
+    TextInputLayout txtInputThemMaKho;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,14 +87,12 @@ public class ActivityKho extends AppCompatActivity {
     }
 
     public void showResultSearch(String data) {
-        dbKho = new DBVatTu(ActivityKho.this);
-        khoArrayList = dbKho.searchKho(data);
+        khoArrayList = MainActivity.dbVatTu.searchKho(data);
         khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
         lvDSKho.setAdapter(khoAdapter);
     }
     public void showDB() {
-        dbKho = new DBVatTu(ActivityKho.this);
-        khoArrayList = dbKho.getAllKho();
+        khoArrayList = MainActivity.dbVatTu.getAllKho();
         khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
         lvDSKho.setAdapter(khoAdapter);
     }
@@ -114,22 +114,24 @@ public class ActivityKho extends AppCompatActivity {
         //tắt click ngoài là thoát'
 
         dialog.setCanceledOnTouchOutside(false);
-
-        Button btnThemKho = dialog.findViewById(R.id.btnThemKhoChiTiet);
-        ImageView imgThoatThemKho = dialog.findViewById(R.id.imgThoatThemKho);
-        EditText editThemTenKho = dialog.findViewById(R.id.editThemTenKho);
-        btnThemKho.setOnClickListener(new View.OnClickListener() {
+        txtInputThemMaKho = dialog.findViewById(R.id.txtInputThemMaKho);
+        btnThemKhoDialog = dialog.findViewById(R.id.btnThemKhoChiTiet);
+        imgThoatThemKho = dialog.findViewById(R.id.imgThoatThemKho);
+        editThemTenKho = dialog.findViewById(R.id.editThemTenKho);
+        btnThemKhoDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Kho kho = new Kho();
-                kho.setTenKho(editThemTenKho.getText().toString());
-                dbKho.themKho(kho);
-                dialog.cancel();
-                getWindow().setSoftInputMode(
-                        WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-                );
-                Toast.makeText(ActivityKho.this, "Thêm kho thành công", Toast.LENGTH_LONG).show();
-                showDB();
+                if (CheckError.checkEmptyEditText(editThemTenKho, txtInputThemMaKho)){
+                    Kho kho = new Kho();
+                    kho.setTenKho(editThemTenKho.getText().toString());
+                    MainActivity.dbVatTu.themKho(kho);
+                    dialog.cancel();
+                    getWindow().setSoftInputMode(
+                            WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                    );
+                    Toast.makeText(ActivityKho.this, "Thêm kho thành công", Toast.LENGTH_LONG).show();
+                    showDB();
+                }
             }
         });
 

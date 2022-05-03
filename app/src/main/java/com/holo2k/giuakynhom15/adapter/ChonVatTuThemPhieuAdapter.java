@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.holo2k.giuakynhom15.ActivityThemPhieuNhap;
+import com.holo2k.giuakynhom15.MainActivity;
 import com.holo2k.giuakynhom15.R;
 import com.holo2k.giuakynhom15.model.VatTu;
 
@@ -43,11 +45,12 @@ public class ChonVatTuThemPhieuAdapter extends ArrayAdapter<VatTu> {
         TextView tvMaVatTu = convertView.findViewById(R.id.tvMaVatTuCheckBox);
         TextView tvTenVatTu = convertView.findViewById(R.id.tvTenVatTuCheckBox);
         TextView tvXuatXu = convertView.findViewById(R.id.tvXuatXuCheckBox);
+        ImageView imgHinhAnhVatTuCBThemPhieu = convertView.findViewById(R.id.imgHinhVatTuCheckBox);
         CheckBox checkBox = convertView.findViewById(R.id.checkBox);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (checkBox.isChecked()){
+                if (checkBox.isChecked()) {
                     ActivityThemPhieuNhap.viTriCB.add(vatTuArrayList.get(position));
                 }
             }
@@ -56,6 +59,7 @@ public class ChonVatTuThemPhieuAdapter extends ArrayAdapter<VatTu> {
         tvMaVatTu.setText(String.valueOf(vatTu.getMaVatTu()));
         tvTenVatTu.setText(vatTu.getTenVatTu());
         tvXuatXu.setText(vatTu.getXuatXu());
+        imgHinhAnhVatTuCBThemPhieu.setImageBitmap(MainActivity.chuyenByteSangHinhAnh(vatTu.getUri(), context));
         return convertView;
     }
 }

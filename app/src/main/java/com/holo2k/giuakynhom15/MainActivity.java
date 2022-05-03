@@ -3,29 +3,56 @@ package com.holo2k.giuakynhom15;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.CursorWindow;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.holo2k.giuakynhom15.database.DBVatTu;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+
 public class MainActivity extends AppCompatActivity {
     Button btnKho, btnVatTu, btnPhieuNhap, btnTimKiem, btnThongKe, btnThoat;
+    public static DBVatTu dbVatTu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        dbVatTu = new DBVatTu(this);
+        dbVatTu.deleteAllTable("vattu");
         setControl();
         setEvent();
     }
 
-
+    public static Bitmap chuyenByteSangHinhAnh(Uri selectedFileUri, Context context) {
+        InputStream inputStream = null;
+        try {
+            inputStream = context.getContentResolver().openInputStream(selectedFileUri);
+            return BitmapFactory.decodeStream(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     private void setEvent() {
         //tạo database
-        DBVatTu dbVatTu = new DBVatTu(MainActivity.this);
         //quản lý kho
         btnKho.setOnClickListener(new View.OnClickListener() {
             @Override
