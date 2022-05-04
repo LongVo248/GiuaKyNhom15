@@ -21,7 +21,7 @@ import com.holo2k.giuakynhom15.model.VatTu;
 public class ActivityChiTietVatTu extends AppCompatActivity {
     VatTu vatTu;
     Button btnSua, btnXoa;
-    ImageView imgThoat;
+    ImageView imgThoat, imgChiTietVT;
     TextView tvMaVatTuChiTiet;
     EditText editTenVatTuChiTiet , editXuatXuChiTiet;
 
@@ -146,10 +146,10 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
             vatTu.setXuatXu(bundle.getString("chitietvattuxxvt"));
             vatTu.setUri(bundle.getString("chitietvattuhinhanhvt"));
         }
-//        vatTu = (VatTu) getIntent().getSerializableExtra("chitietvattu");
-        tvMaVatTuChiTiet.setText(String.valueOf(vatTu.getMaVatTu()));
+        tvMaVatTuChiTiet.setText(vatTu.getMaVatTu());
         editTenVatTuChiTiet.setText(vatTu.getTenVatTu());
         editXuatXuChiTiet.setText(vatTu.getXuatXu());
+        imgChiTietVT.setImageBitmap(MainActivity.chuyenStringURISangHinhAnh(vatTu.getUri()));
     }
 
     private void setControl() {
@@ -159,6 +159,7 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
         tvMaVatTuChiTiet = findViewById(R.id.tvMaVatTuChiTiet);
         editTenVatTuChiTiet = findViewById(R.id.editTenVatTuChiTiet);
         editXuatXuChiTiet = findViewById(R.id.editXuatXuChiTiet);
+        imgChiTietVT = findViewById(R.id.imgChiTietVT);
 
     }
 }
