@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.holo2k.giuakynhom15.database.DBVatTu;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -28,28 +29,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
-            field.setAccessible(true);
-            field.set(null, 100 * 1024 * 1024); //the 100MB is the new size
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         dbVatTu = new DBVatTu(this);
-        dbVatTu.deleteAllTable("vattu");
         setControl();
         setEvent();
     }
 
-    public static Bitmap chuyenByteSangHinhAnh(Uri selectedFileUri, Context context) {
-        InputStream inputStream = null;
-        try {
-            inputStream = context.getContentResolver().openInputStream(selectedFileUri);
-            return BitmapFactory.decodeStream(inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public static Bitmap chuyenStringURISangHinhAnh(String selectedFileUri) {
+        File file = new File(selectedFileUri);
+        Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        return bitmap;
     }
     private void setEvent() {
         //tạo database

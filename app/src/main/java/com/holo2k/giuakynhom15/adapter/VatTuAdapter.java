@@ -54,7 +54,7 @@ public class VatTuAdapter extends ArrayAdapter<VatTu> {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            context.getContentResolver().takePersistableUriPermission(vatTu.getUri(), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 //        }
-        imgHinhAnhVT.setImageBitmap(MainActivity.chuyenByteSangHinhAnh(vatTu.getUri(), context));
+        imgHinhAnhVT.setImageBitmap(MainActivity.chuyenStringURISangHinhAnh(vatTu.getUri()));
         return convertView;
     }
 }

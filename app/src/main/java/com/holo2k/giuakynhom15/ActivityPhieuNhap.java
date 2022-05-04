@@ -28,6 +28,8 @@ public class ActivityPhieuNhap extends AppCompatActivity {
     ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
     DSPhieuNhapAdapter phieuNhapAdapter;
     EditText edSearch;
+    public static boolean clickChiTietPhieuNhap = false;
+    public static boolean clickThemChiTietPhieuNhap = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,7 @@ public class ActivityPhieuNhap extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(ActivityPhieuNhap.this, ActivityChiTietPhieuNhap.class);
                 intent.putExtra("chitietphieunhap", phieuNhapArrayList.get(i));
+                ActivityPhieuNhap.clickChiTietPhieuNhap = true;
                 startActivityForResult(intent, 3);
             }
         });
@@ -80,13 +83,14 @@ public class ActivityPhieuNhap extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(ActivityPhieuNhap.this, ActivityThemPhieuNhap.class);
+                ActivityPhieuNhap.clickThemChiTietPhieuNhap = true;
                 startActivityForResult(intent, 5);
             }
         });
     }
 
 
-    public void showDBPhieuNhap() {
+    public void  showDBPhieuNhap() {
         phieuNhapArrayList = MainActivity.dbVatTu.getAllPhieuNhap();
         phieuNhapAdapter = new DSPhieuNhapAdapter(this, R.layout.item_phieu_nhap, phieuNhapArrayList);
         lvDSPhieu.setAdapter(phieuNhapAdapter);
@@ -102,8 +106,16 @@ public class ActivityPhieuNhap extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 5){
+            ActivityPhieuNhap.clickThemChiTietPhieuNhap = false;
             if (resultCode == 1){
                 showDBPhieuNhap();
+            }
+        }
+        if (requestCode == 3){
+            ActivityPhieuNhap.clickChiTietPhieuNhap = false;
+            if (resultCode == 1){
+                showDBPhieuNhap();
+                Toast.makeText(this, "Xoá thành công phiếu nhập", Toast.LENGTH_LONG).show();
             }
         }
     }

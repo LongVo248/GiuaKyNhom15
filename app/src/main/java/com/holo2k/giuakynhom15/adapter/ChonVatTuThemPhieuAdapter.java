@@ -59,7 +59,7 @@ public class ChonVatTuThemPhieuAdapter extends ArrayAdapter<VatTu> {
         tvMaVatTu.setText(String.valueOf(vatTu.getMaVatTu()));
         tvTenVatTu.setText(vatTu.getTenVatTu());
         tvXuatXu.setText(vatTu.getXuatXu());
-        imgHinhAnhVatTuCBThemPhieu.setImageBitmap(MainActivity.chuyenByteSangHinhAnh(vatTu.getUri(), context));
+        imgHinhAnhVatTuCBThemPhieu.setImageBitmap(MainActivity.chuyenStringURISangHinhAnh(vatTu.getUri()));
         return convertView;
     }
 }

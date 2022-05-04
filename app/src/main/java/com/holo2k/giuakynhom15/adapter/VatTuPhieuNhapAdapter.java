@@ -8,14 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.holo2k.giuakynhom15.ActivityChiTietPhieuNhap;
+import com.holo2k.giuakynhom15.ActivityPhieuNhap;
 import com.holo2k.giuakynhom15.ActivityThemPhieuNhap;
+import com.holo2k.giuakynhom15.MainActivity;
 import com.holo2k.giuakynhom15.R;
 import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
+import com.holo2k.giuakynhom15.model.VatTu;
 import com.holo2k.giuakynhom15.model.VatTuPhieuNhap;
 
 import java.util.ArrayList;
@@ -48,10 +53,32 @@ public class VatTuPhieuNhapAdapter extends ArrayAdapter<VatTuPhieuNhap> {
         EditText editSLVTThemPhieu = convertView.findViewById(R.id.editSLVTThemPhieu);
         EditText editDVVTThemPhieu = convertView.findViewById(R.id.editDVVTThemPhieu);
         VatTuPhieuNhap vatTuPhieuNhap = vatTuPhieuNhapArrayList.get(position);
+        ImageView imgLoaiBoVatTu = convertView.findViewById(R.id.imgLoaiBoVatTu);
         tvMaVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getMaVT()));
         tvTenVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getTenVT()));
         editDVVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getdV()));
         editSLVTThemPhieu.setText(String.valueOf(vatTuPhieuNhap.getsL()));
+        imgLoaiBoVatTu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                VatTu vatTu = MainActivity.dbVatTu.getVatTu(vatTuPhieuNhap.getMaVT());
+                if (ActivityPhieuNhap.clickThemChiTietPhieuNhap == true) {
+                    ActivityThemPhieuNhap.vatTuPhieuNhaps.remove(vatTuPhieuNhap);
+                    ActivityThemPhieuNhap.vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(context, R.layout.item_vat_tu_them_phieu, ActivityThemPhieuNhap.vatTuPhieuNhaps);
+                    ActivityThemPhieuNhap.lvDSVatTuPhieu.setAdapter(ActivityThemPhieuNhap.vatTuPhieuNhapAdapter);
+
+                    ActivityThemPhieuNhap.vatTus.add(vatTu);
+                }
+                if (ActivityPhieuNhap.clickChiTietPhieuNhap == true) {
+                    ActivityChiTietPhieuNhap.vatTuPhieuNhaps.remove(vatTuPhieuNhap);
+                    ActivityChiTietPhieuNhap.vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(context, R.layout.item_vat_tu_them_phieu, ActivityChiTietPhieuNhap.vatTuPhieuNhaps);
+                    ActivityChiTietPhieuNhap.lvDSVatTuChiTietPhieu.setAdapter(ActivityChiTietPhieuNhap.vatTuPhieuNhapAdapter);
+
+                    ActivityChiTietPhieuNhap.vatTus.add(vatTu);
+                }
+
+            }
+        });
         editSLVTThemPhieu.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

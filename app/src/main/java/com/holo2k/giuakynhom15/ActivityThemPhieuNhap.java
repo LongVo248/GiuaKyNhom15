@@ -36,14 +36,14 @@ import java.util.Calendar;
 public class ActivityThemPhieuNhap extends AppCompatActivity {
     Spinner spKho;
     Kho kho;
-    ArrayList<VatTu> vatTus = new ArrayList<>();
+    public static ArrayList<VatTu> vatTus = new ArrayList<>();
     ChonVatTuThemPhieuAdapter chonVatTuAdapter;
     EditText editTenKhoChiTiet;
     TextView tvNgayNhapPhieu, tvMaPhieuThemPhieu;
-    ListView lvDSVatTuPhieu, lvChonVatTu;
+    public static ListView lvDSVatTuPhieu, lvChonVatTu;
     ImageView imgCalendar, imgThoat, imgThoatChonVT;
     Button btnLuuPhieu, btnThemVTThemPhieu, btnDatLai, btnThemVTPN;
-    VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
+    public static VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
     Dialog dialog;
     public static ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
     public static ArrayList<VatTu> viTriCB = new ArrayList<>();
@@ -107,6 +107,17 @@ public class ActivityThemPhieuNhap extends AppCompatActivity {
                 Intent intent = new Intent();
                 setResult(0, intent);
                 finish();
+            }
+        });
+        btnDatLai.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (VatTuPhieuNhap vatuPN : vatTuPhieuNhaps) {
+                        vatTus.add(MainActivity.dbVatTu.getVatTu(vatuPN.getMaVT()));
+                }
+                vatTuPhieuNhaps.clear();
+                vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(ActivityThemPhieuNhap.this, R.layout.item_vat_tu_them_phieu, vatTuPhieuNhaps);
+                lvDSVatTuPhieu.setAdapter(vatTuPhieuNhapAdapter);
             }
         });
         imgCalendar.setOnClickListener(new View.OnClickListener() {

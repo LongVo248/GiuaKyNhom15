@@ -177,7 +177,7 @@
         <ListView
             android:id="@+id/lvDSVatTuChiTietPhieu"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
+            android:layout_height="400dp"
             android:background="#A7FFE0" />
     </LinearLayout>
 

@@ -60,7 +60,7 @@ public class ChonVatTuChiTietPhieuAdapter extends ArrayAdapter<VatTu> {
         tvMaVatTu.setText(String.valueOf(vatTu.getMaVatTu()));
         tvTenVatTu.setText(vatTu.getTenVatTu());
         tvXuatXu.setText(vatTu.getXuatXu());
-        imgHinhVatTu.setImageBitmap(MainActivity.chuyenByteSangHinhAnh(vatTu.getUri(), context));
+        imgHinhVatTu.setImageBitmap(MainActivity.chuyenStringURISangHinhAnh(vatTu.getUri()));
         return convertView;
     }
 }

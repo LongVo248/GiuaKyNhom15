@@ -28,13 +28,13 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
     Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap, btnThemVTPN, btnLuuPhieuChiTiet;
     TextView tvNgayNhapPhieuChiTiet, tvMaPhieuChiTiet, tvTenKhoPhieuNhapChiTiet;
     ImageView imgThoatPhieuNhapChiTiet;
-    ListView lvDSVatTuChiTietPhieu;
-    VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
+    public static ListView lvDSVatTuChiTietPhieu;
+    public static VatTuPhieuNhapAdapter vatTuPhieuNhapAdapter;
     Dialog dialog;
     ListView lvChonVatTu;
     ChonVatTuChiTietPhieuAdapter chonVatTuAdapter;
     ImageView imgThoatChonVT;
-    ArrayList<VatTu> vatTus = new ArrayList<>();
+    public static ArrayList<VatTu> vatTus = new ArrayList<>();
     public static ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
     public static ArrayList<VatTu> viTriCB = new ArrayList<>();
 
@@ -65,6 +65,13 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
                 }
             }
         });
+        btnXoaChiTietPhieuNhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                dialogXoa();
+            }
+        });
         btnLuuPhieuChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +81,44 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
 
     }
 
+    private void dialogXoa() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_confirm_xoa);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+        //tắt click ngoài là thoát
+        dialog.setCanceledOnTouchOutside(false);
+
+        Button btnCo = dialog.findViewById(R.id.btnCo);
+        Button btnKhong = dialog.findViewById(R.id.btnKhong);
+
+        btnCo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+                showXoaKhongThanhCong(MainActivity.dbVatTu.deletePhieuNhap(tvMaPhieuChiTiet.getText().toString()));
+
+            }
+        });
+
+        btnKhong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+    }
+
+    public void showXoaKhongThanhCong(int check) {
+        System.out.println("\n\n\n" + check +"\n\n\n\n");
+        if (check != 1) {
+            Toast.makeText(this, "Phiếu nhập đã có trong phiếu nhập\n Không thể xoá!", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent();
+            setResult(1, intent);
+            finish();
+        }
+    }
     public void removeVatTuTrongChonVT(ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps) {
         for (VatTuPhieuNhap vatTuPhieuNhap : vatTuPhieuNhaps) {
             for (int i = 0; i < vatTus.size(); i++) {

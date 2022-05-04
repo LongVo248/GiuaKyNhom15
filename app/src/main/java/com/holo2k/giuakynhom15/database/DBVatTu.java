@@ -136,8 +136,6 @@ public class DBVatTu extends SQLiteOpenHelper {
     }
 
 
-
-
     public ArrayList<Kho> getAllKho() {
         ArrayList<Kho> khoArrayList = new ArrayList<>();
         String getAllKho = "SELECT * FROM " + KHO;
@@ -243,7 +241,7 @@ public class DBVatTu extends SQLiteOpenHelper {
                             cursor.getString(0),
                             cursor.getString(1),
                             cursor.getString(2),
-                            Uri.parse(cursor.getString(3))));
+                            cursor.getString(3)));
         }
         cursor.close();
         return vatTuArrayList;
@@ -264,7 +262,7 @@ public class DBVatTu extends SQLiteOpenHelper {
                 maVatTu = cursor.getString(0);
                 tenVatTu = cursor.getString(1);
                 xuatXu = cursor.getString(2);
-                byte[] hinhAnh = cursor.getBlob(3);
+                String hinhAnh = cursor.getString(3);
                 VatTu vatTu = new VatTu(maVatTu, tenVatTu, xuatXu, hinhAnh);
                 vatTuArrayList.add(vatTu);
                 cursor.moveToNext();
@@ -280,10 +278,11 @@ public class DBVatTu extends SQLiteOpenHelper {
         //true la tim thay
         //false khong tim thay
 
-        String getAllVatTu = "SELECT * FROM " + CHITIETPHIEUNHAP + " WHERE MAVT = " + "'" + String.valueOf(maVatTu) + "'";
+        String getAllVatTu = "SELECT * FROM " + CHITIETPHIEUNHAP + " WHERE MAVT = " + "'" + maVatTu + "'";
         System.out.println(getAllVatTu);
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(getAllVatTu, null);
+        System.out.println("\n\n\n\n" + cursor.getCount() + "\n\n\n\n");
         return cursor.getCount() == 0 ? false : true;
     }
 
@@ -291,6 +290,7 @@ public class DBVatTu extends SQLiteOpenHelper {
         //chú ý : getWritableDatabase là cả đọc và ghi
         if (!checkMaVatTuTrongPhieuNhap(id)) {
             SQLiteDatabase db = this.getWritableDatabase();
+            System.out.println("\n\n\n\n DA XOAAAAAAAAAAA \n\n\n\n");
             db.delete(VATTU, MAVT + " = " + "'" + id + "'", null);
             return true;
         } else {
@@ -298,6 +298,15 @@ public class DBVatTu extends SQLiteOpenHelper {
         }
     }
 
+    public VatTu getVatTu(String maVT) {
+        String getVT = "SELECT * FROM VATTU WHERE MAVT = '" + maVT + "'";
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getVT, null);
+        cursor.moveToFirst();
+        VatTu vatTu = new VatTu(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        cursor.close();
+        return vatTu;
+    }
     //Phiếu nhập
 
     public void themPhieunhap(PhieuNhap phieuNhap) {
@@ -426,6 +435,12 @@ public class DBVatTu extends SQLiteOpenHelper {
         values.put(SOLUONG, vatTuPhieuNhap.getsL());
         db.insert(CHITIETPHIEUNHAP, null, values);
         db.close();
+    }
+
+    public int deletePhieuNhap(String maPN) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        return db.delete(PHIEUNHAP, SOPHIEU + " = " + "'" + maPN + "'", null);
     }
 
 //    public String layMaPhieuMax(){

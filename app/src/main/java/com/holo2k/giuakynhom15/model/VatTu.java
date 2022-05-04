@@ -6,8 +6,7 @@ import java.io.Serializable;
 
 public class VatTu implements Serializable {
     private String maVatTu, tenVatTu, xuatXu;
-    private Uri uri;
-    private byte[] hinhAnh;
+    private String uri;
 
     public VatTu() {
     }
@@ -18,25 +17,18 @@ public class VatTu implements Serializable {
         this.xuatXu = xuatXu;
     }
 
-    public VatTu(String maVatTu, String tenVatTu, String xuatXu, byte[] hinhAnh) {
-        this.maVatTu = maVatTu;
-        this.tenVatTu = tenVatTu;
-        this.xuatXu = xuatXu;
-        this.hinhAnh = hinhAnh;
-    }
-
-    public VatTu(String maVatTu, String tenVatTu, String xuatXu, Uri uri) {
+    public VatTu(String maVatTu, String tenVatTu, String xuatXu, String uri) {
         this.maVatTu = maVatTu;
         this.tenVatTu = tenVatTu;
         this.xuatXu = xuatXu;
         this.uri = uri;
     }
 
-    public Uri getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(Uri uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -64,11 +56,5 @@ public class VatTu implements Serializable {
         this.xuatXu = xuatXu;
     }
 
-    public byte[] getHinhAnh() {
-        return hinhAnh;
-    }
 
-    public void setHinhAnh(byte[] hinhAnh) {
-        this.hinhAnh = hinhAnh;
-    }
 }

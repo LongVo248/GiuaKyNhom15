@@ -96,7 +96,7 @@ public class ActivityVatTu extends AppCompatActivity {
                 bundle.putString("chitietvattumavt", vatTuArrayList.get(i).getMaVatTu());
                 bundle.putString("chitietvattutenvt", vatTuArrayList.get(i).getTenVatTu());
                 bundle.putString("chitietvattuxxvt", vatTuArrayList.get(i).getXuatXu());
-                bundle.putByteArray("chitietvattuhinhanhvt", vatTuArrayList.get(i).getHinhAnh());
+                bundle.putString("chitietvattuhinhanhvt", vatTuArrayList.get(i).getUri());
 //                intent.putExtra("chitietvattu", vatTuArrayList.get(i));
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 2);
@@ -184,8 +184,7 @@ public class ActivityVatTu extends AppCompatActivity {
                     vatTu.setMaVatTu(editThemMaVatTu.getText().toString().toUpperCase(Locale.ROOT));
                     vatTu.setXuatXu(editThemXuatXu.getText().toString());
                     vatTu.setTenVatTu(editThemTenVatTu.getText().toString());
-                    vatTu.setHinhAnh(MainActivity.dbVatTu.chuyenHinhAnhSangByte(imgHinhVatTu));
-//                    vatTu.setUri(uriAnhVT);
+                    vatTu.setUri(uriAnhVT);
                     MainActivity.dbVatTu.themVatTu(vatTu);
                     dialog.cancel();
                     getWindow().setSoftInputMode(
