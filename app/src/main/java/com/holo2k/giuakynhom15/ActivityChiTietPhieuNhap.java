@@ -108,27 +108,32 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
 
                 myPaint.setTextSize(8.0f);
                 myPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("Mã kho: " + phieuNhap.getMaKho(),myPageInfo1.getPageWidth()/2-100, 50, myPaint);
-                canvas.drawText("Tên kho: " + tvTenKhoPhieuNhapChiTiet.getText(), myPageInfo1.getPageWidth()/2, 50, myPaint);
-                canvas.drawText("Số phiếu nhập: " + tvMaPhieuChiTiet.getText(),myPageInfo1.getPageWidth()/2-100, 70, myPaint);
-                canvas.drawText("Ngày nhập phiếu: " + tvNgayNhapPhieuChiTiet.getText(), myPageInfo1.getPageWidth()/2, 70, myPaint);
-                canvas.drawLine(60,50,100,50, myPaint);
-                canvas.drawLine(160,50,230,50, myPaint);
-                canvas.drawLine(80,70,100,70, myPaint);
-                canvas.drawLine(190,70,230,70, myPaint);
+                canvas.drawText("Mã kho:   " + phieuNhap.getMaKho(),myPageInfo1.getPageWidth()/2-100, 50, myPaint);
+                canvas.drawText("Tên kho:   " + tvTenKhoPhieuNhapChiTiet.getText(), myPageInfo1.getPageWidth()/2, 50, myPaint);
+                canvas.drawText("Số phiếu nhập:   " + tvMaPhieuChiTiet.getText(),myPageInfo1.getPageWidth()/2-100, 70, myPaint);
+                canvas.drawText("Ngày nhập phiếu:   " + tvNgayNhapPhieuChiTiet.getText(), myPageInfo1.getPageWidth()/2-100, 90, myPaint);
+                canvas.drawLine(60,51,100,51, myPaint);
+                canvas.drawLine(160,51,230,51, myPaint);
+                canvas.drawLine(80,71,230,71, myPaint);
+                canvas.drawLine(90,91,130,91, myPaint);
+
+                myPaint.setTextAlign(Paint.Align.CENTER);
+                canvas.drawText("DANH SÁCH VẬT TƯ",myPageInfo1.getPageWidth()/2,105,myPaint);
+
+                myPaint.setTextAlign(Paint.Align.LEFT);
 
                 myPaint.setTextSize(6.0f);
-                int xStart = 20, xStop = 230 , yStart = 90, yStop = 100;
+                int xStart = 20, xStop = 230 , yStart = 115, yStop = 125;
                 canvas.drawLine(xStart, yStart, xStop, yStart,myPaint);
                 canvas.drawText("Mã VT", xStart+2,yStart+8,myPaint);
                 canvas.drawText("Tên Vật Tư", xStart+60,yStart+8,myPaint);
                 canvas.drawText("Đơn vị", xStart+155,yStart+8,myPaint);
                 canvas.drawText("Số lượng", xStart+184,yStart+8,myPaint);
                 canvas.drawLine(xStart,yStart,xStart,yStop, myPaint);
-                canvas.drawLine(xStart+30,90,xStart+30,100, myPaint);
-                canvas.drawLine(xStart+150,90,xStart+150,100, myPaint);
-                canvas.drawLine(xStart+180,90,xStart+180,100, myPaint);
-                canvas.drawLine(xStart+210,90,xStart+210,100, myPaint);
+                canvas.drawLine(xStart+30,yStart,xStart+30,yStop, myPaint);
+                canvas.drawLine(xStart+150,yStart,xStart+150,yStop, myPaint);
+                canvas.drawLine(xStart+180,yStart,xStart+180,yStop, myPaint);
+                canvas.drawLine(xStart+210,yStart,xStart+210,yStop, myPaint);
                 canvas.drawLine(xStart, yStop, xStop, yStop,myPaint);
 
                 for (VatTuPhieuNhap vTPN: vatTuPhieuNhaps) {

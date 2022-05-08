@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        btnThongKe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(MainActivity.this, ActivityThongKe.class);
+                startActivity(intent);
+            }
+        });
 
         //Nhấn nút thoát app
         btnThoat.setOnClickListener(new View.OnClickListener() {

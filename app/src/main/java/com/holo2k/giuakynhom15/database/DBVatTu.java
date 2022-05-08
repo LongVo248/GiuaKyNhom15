@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.holo2k.giuakynhom15.model.ChiTietPhieuNhap;
 import com.holo2k.giuakynhom15.model.Kho;
 import com.holo2k.giuakynhom15.model.PhieuNhap;
 import com.holo2k.giuakynhom15.model.VatTu;
@@ -50,6 +51,7 @@ public class DBVatTu extends SQLiteOpenHelper {
     private static final String PHIEUNHAP = "PHIEUNHAP";
     private static final String SOPHIEU = "SOPHIEU";
     private static final String NGAYLAP = "NGAYLAP";
+
 
     //Bảng Chi tiết phiếu nhập
     private static final String CHITIETPHIEUNHAP = "CHITIETPHIEUNHAP";
@@ -153,6 +155,8 @@ public class DBVatTu extends SQLiteOpenHelper {
         }
         return khoArrayList;
     }
+
+
 
     public ArrayList<Kho> searchKho(String data) {
         ArrayList<Kho> khoArrayList = new ArrayList<>();
@@ -334,6 +338,14 @@ public class DBVatTu extends SQLiteOpenHelper {
         db.execSQL(query2);
     }
 
+    public void dropPN() {
+        String query = "drop table phieunhap";
+        String query2 = createTablePhieuNhap;
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL(query);
+        db.execSQL(query2);
+    }
+
     public ArrayList<PhieuNhap> getAllPhieuNhap() {
         ArrayList<PhieuNhap> phieuNhapArrayList = new ArrayList<>();
         String getAllPhieuNhap = "SELECT * FROM " + PHIEUNHAP;
@@ -443,14 +455,71 @@ public class DBVatTu extends SQLiteOpenHelper {
         return db.delete(PHIEUNHAP, SOPHIEU + " = " + "'" + maPN + "'", null);
     }
 
-//    public String layMaPhieuMax(){
-//        String layMaPhieuMax = "SELECT MAX(MAVT) FROM " + VATTU;
-//        SQLiteDatabase db = getWritableDatabase();
-//        try{
-//        Cursor cursor = db.rawQuery(layMaPhieuMax, null);
-//        return cursor.getString(0);
-//        } catch (NullPointerException e) {
-//            Logger.getLogger(String.valueOf(e));
-//        } return String.valueOf(1);
-//    }
+    public ArrayList<ChiTietPhieuNhap> getAllChiTietPhieuNhap() {
+        ArrayList<ChiTietPhieuNhap> chiTietPhieuNhaps = new ArrayList<>();
+        String getAllChiTietPhieuNhap = "SELECT * FROM " + CHITIETPHIEUNHAP;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(getAllChiTietPhieuNhap, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String maPhieuNhap;
+            String maVatTu;
+            String dvt;
+            String soLuong;
+            maPhieuNhap = cursor.getString(0);
+            maVatTu = cursor.getString(1);
+            dvt = cursor.getString(2);
+            soLuong = cursor.getString(3);
+            ChiTietPhieuNhap chiTietPhieuNhap = new ChiTietPhieuNhap(maPhieuNhap, maVatTu, dvt, soLuong);
+            chiTietPhieuNhaps.add(chiTietPhieuNhap);
+            cursor.moveToNext();
+        }
+        return chiTietPhieuNhaps;
+    }
+
+    public ArrayList<ChiTietPhieuNhap> getChiTietPhieuTheoKho(int maKho, ArrayList<PhieuNhap> phieuNhaps, ArrayList<ChiTietPhieuNhap> allChiTietPhieuNhaps) {
+        ArrayList<String> maPhieuTrongKhos = new ArrayList<>();
+        ArrayList<ChiTietPhieuNhap> chiTietPhieuNhaps = new ArrayList<>();
+        for (PhieuNhap phieuNhap : phieuNhaps) {
+            if (phieuNhap.getMaKho() == maKho) {
+                maPhieuTrongKhos.add(phieuNhap.getMaPhieuNhap());
+            }
+        }
+        for (String maPhieu: maPhieuTrongKhos) {
+            for (ChiTietPhieuNhap chiTietPhieuNhap: allChiTietPhieuNhaps) {
+                if (chiTietPhieuNhap.getMaPhieuNhap().equals(maPhieu)){
+                    chiTietPhieuNhaps.add(chiTietPhieuNhap);
+                }
+            }
+        }
+        for (String maPhieu: maPhieuTrongKhos) {
+
+            System.out.println("\n\n\n MaPhieu: " + maPhieu);
+        }
+        return chiTietPhieuNhaps;
+    }
+
+    public ArrayList<VatTuPhieuNhap> getSumVT(ArrayList<ChiTietPhieuNhap> chiTietPhieuNhaps) {
+        ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
+        for (ChiTietPhieuNhap chiTietPhieuNhap : chiTietPhieuNhaps) {
+            VatTuPhieuNhap vatTuPhieuNhap = new VatTuPhieuNhap(chiTietPhieuNhap.getMaVatTu(),
+                    getVatTu(chiTietPhieuNhap.getMaVatTu()).getTenVatTu(),
+                    chiTietPhieuNhap.getDvt(),
+                    chiTietPhieuNhap.getSoLuong());
+            int check = 0;
+            for (int i = 0; i < vatTuPhieuNhaps.size(); i++) {
+                if (vatTuPhieuNhaps.get(i).getMaVT().equals(vatTuPhieuNhap.getMaVT())) {
+                    check++;
+                    vatTuPhieuNhap.setsL(String.valueOf(Integer.parseInt(vatTuPhieuNhaps.get(i).getsL()) + Integer.parseInt(vatTuPhieuNhap.getsL())));
+                    vatTuPhieuNhaps.set(i, vatTuPhieuNhap);
+                    break;
+                }
+            }
+            if (check == 0) {
+                vatTuPhieuNhaps.add(vatTuPhieuNhap);
+            }
+        }
+        return vatTuPhieuNhaps;
+    }
+
 }

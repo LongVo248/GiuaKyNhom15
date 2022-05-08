@@ -35,7 +35,7 @@ import java.util.Calendar;
 
 public class ActivityThemPhieuNhap extends AppCompatActivity {
     Spinner spKho;
-    Kho kho;
+    Kho kho = new Kho();
     public static ArrayList<VatTu> vatTus = new ArrayList<>();
     ChonVatTuThemPhieuAdapter chonVatTuAdapter;
     EditText editTenKhoChiTiet;
