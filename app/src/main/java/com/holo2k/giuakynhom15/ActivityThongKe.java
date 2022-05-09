@@ -65,7 +65,7 @@ public class ActivityThongKe extends AppCompatActivity {
                 vatTuKhos = MainActivity.dbVatTu.getSumVT(MainActivity.dbVatTu.getChiTietPhieuTheoKho(kho.getMaKho(),
                         MainActivity.dbVatTu.getAllPhieuNhap(),
                         MainActivity.dbVatTu.getAllChiTietPhieuNhap()));
-                if (vatTuKhos != null){
+                if (vatTuKhos != null) {
                     thongKeKhoAdapter = new ThongKeKhoAdapter(ActivityThongKe.this, R.layout.item_vat_tu_thong_ke, vatTuKhos);
                     lvDSVatTuKho.setAdapter(thongKeKhoAdapter);
                 }
@@ -91,64 +91,61 @@ public class ActivityThongKe extends AppCompatActivity {
                 myPaint.setTextSize(12.0f);
                 myPaint.setColor(Color.BLACK);
                 myPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-                canvas.drawText("THỐNG KÊ KHO",myPageInfo1.getPageWidth()/2, 30,myPaint);
+                canvas.drawText("THỐNG KÊ KHO", myPageInfo1.getPageWidth() / 2, 30, myPaint);
 
                 myPaint.setTextSize(8.0f);
                 myPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("Mã kho:    " + kho.getMaKho(),myPageInfo1.getPageWidth()/2-100, 50, myPaint);
-                canvas.drawText("Tên kho:  " + kho.getTenKho(), myPageInfo1.getPageWidth()/2, 50, myPaint);
-                canvas.drawLine(60,50,100,50, myPaint);
-                canvas.drawLine(160,50,230,50, myPaint);
+                canvas.drawText("Mã kho:    " + kho.getMaKho(), myPageInfo1.getPageWidth() / 2 - 100, 50, myPaint);
+                canvas.drawText("Tên kho:  " + kho.getTenKho(), myPageInfo1.getPageWidth() / 2, 50, myPaint);
+                canvas.drawLine(60, 50, 100, 50, myPaint);
+                canvas.drawLine(160, 50, 230, 50, myPaint);
 
                 myPaint.setTextAlign(Paint.Align.CENTER);
-                canvas.drawText("DANH SÁCH VẬT TƯ",myPageInfo1.getPageWidth()/2,70,myPaint);
+                canvas.drawText("DANH SÁCH VẬT TƯ", myPageInfo1.getPageWidth() / 2, 70, myPaint);
 
                 myPaint.setTextAlign(Paint.Align.LEFT);
                 myPaint.setTextSize(6.0f);
-                int xStart = 20, xStop = 230 , yStart = 80, yStop = 90;
-                canvas.drawLine(xStart, yStart, xStop, yStart,myPaint);
-                canvas.drawText("Mã VT", xStart+2,yStart+8,myPaint);
-                canvas.drawText("Tên Vật Tư", xStart+60,yStart+8,myPaint);
-                canvas.drawText("Đơn vị", xStart+155,yStart+8,myPaint);
-                canvas.drawText("Số lượng", xStart+184,yStart+8,myPaint);
-                canvas.drawLine(xStart,yStart,xStart,yStop, myPaint);
-                canvas.drawLine(xStart+30,yStart,xStart+30,yStop, myPaint);
-                canvas.drawLine(xStart+150,yStart,xStart+150,yStop, myPaint);
-                canvas.drawLine(xStart+180,yStart,xStart+180,yStop, myPaint);
-                canvas.drawLine(xStart+210,yStart,xStart+210,yStop, myPaint);
-                canvas.drawLine(xStart, yStop, xStop, yStop,myPaint);
+                int xStart = 20, xStop = 230, yStart = 80, yStop = 90;
+                canvas.drawLine(xStart, yStart, xStop, yStart, myPaint);
+                canvas.drawText("Mã VT", xStart + 2, yStart + 8, myPaint);
+                canvas.drawText("Tên Vật Tư", xStart + 60, yStart + 8, myPaint);
+                canvas.drawText("Đơn vị", xStart + 155, yStart + 8, myPaint);
+                canvas.drawText("Số lượng", xStart + 184, yStart + 8, myPaint);
+                canvas.drawLine(xStart, yStart, xStart, yStop, myPaint);
+                canvas.drawLine(xStart + 30, yStart, xStart + 30, yStop, myPaint);
+                canvas.drawLine(xStart + 150, yStart, xStart + 150, yStop, myPaint);
+                canvas.drawLine(xStart + 180, yStart, xStart + 180, yStop, myPaint);
+                canvas.drawLine(xStart + 210, yStart, xStart + 210, yStop, myPaint);
+                canvas.drawLine(xStart, yStop, xStop, yStop, myPaint);
 
-                for (VatTuPhieuNhap vTPN: vatTuKhos) {
-                    yStart=yStart+10;
-                    yStop=yStop+10;
-                    canvas.drawText(vTPN.getMaVT().toString(), xStart+2,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getTenVT().toString(), xStart+60,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getdV().toString(), xStart+155,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getsL().toString(), xStart+184,yStart+8,myPaint);
-                    canvas.drawLine(xStart,yStart,xStart,yStop, myPaint);
-                    canvas.drawLine(xStart+30,yStart,xStart+30,yStop, myPaint);
-                    canvas.drawLine(xStart+150,yStart,xStart+150,yStop, myPaint);
-                    canvas.drawLine(xStart+180,yStart,xStart+180,yStop, myPaint);
-                    canvas.drawLine(xStart+210,yStart,xStart+210,yStop, myPaint);
-                    canvas.drawLine(xStart, yStop, xStop, yStop,myPaint);
+                for (VatTuPhieuNhap vTPN : vatTuKhos) {
+                    yStart = yStart + 10;
+                    yStop = yStop + 10;
+                    canvas.drawText(vTPN.getMaVT().toString(), xStart + 2, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getTenVT().toString(), xStart + 60, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getdV().toString(), xStart + 155, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getsL().toString(), xStart + 184, yStart + 8, myPaint);
+                    canvas.drawLine(xStart, yStart, xStart, yStop, myPaint);
+                    canvas.drawLine(xStart + 30, yStart, xStart + 30, yStop, myPaint);
+                    canvas.drawLine(xStart + 150, yStart, xStart + 150, yStop, myPaint);
+                    canvas.drawLine(xStart + 180, yStart, xStart + 180, yStop, myPaint);
+                    canvas.drawLine(xStart + 210, yStart, xStart + 210, yStop, myPaint);
+                    canvas.drawLine(xStart, yStop, xStop, yStop, myPaint);
                 }
-
-
 
 
                 myPdfDocument.finishPage(myPage1);
 
 
-                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"/"+kho.getTenKho()+".pdf");
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/" + kho.getTenKho() + ".pdf");
                 try {
-                    if(file.exists()){
+                    if (file.exists()) {
                         file.delete();
                     }
                     myPdfDocument.writeTo(new FileOutputStream(file));
                     Toast toast = Toast.makeText(ActivityThongKe.this, "Tao PDF thanh cong!!!", Toast.LENGTH_SHORT);
                     toast.show();
-                }catch (IOException e)
-                {
+                } catch (IOException e) {
                     Toast toast = Toast.makeText(ActivityThongKe.this, "Tao PDF  khong thanh cong!!!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -162,7 +159,6 @@ public class ActivityThongKe extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
     }

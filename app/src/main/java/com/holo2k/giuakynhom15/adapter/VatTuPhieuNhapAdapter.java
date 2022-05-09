@@ -71,6 +71,7 @@ public class VatTuPhieuNhapAdapter extends ArrayAdapter<VatTuPhieuNhap> {
                 }
                 if (ActivityPhieuNhap.clickChiTietPhieuNhap == true) {
                     ActivityChiTietPhieuNhap.vatTuPhieuNhaps.remove(vatTuPhieuNhap);
+                    MainActivity.dbVatTu.deleteChiTietPhieuNhap(ActivityChiTietPhieuNhap.phieuNhap.getMaPhieuNhap(), vatTu.getMaVatTu());
                     ActivityChiTietPhieuNhap.vatTuPhieuNhapAdapter = new VatTuPhieuNhapAdapter(context, R.layout.item_vat_tu_them_phieu, ActivityChiTietPhieuNhap.vatTuPhieuNhaps);
                     ActivityChiTietPhieuNhap.lvDSVatTuChiTietPhieu.setAdapter(ActivityChiTietPhieuNhap.vatTuPhieuNhapAdapter);
 
@@ -92,7 +93,12 @@ public class VatTuPhieuNhapAdapter extends ArrayAdapter<VatTuPhieuNhap> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                ActivityThemPhieuNhap.vatTuPhieuNhaps.get(position).setsL(editSLVTThemPhieu.getText().toString());
+                if (ActivityPhieuNhap.clickThemChiTietPhieuNhap == true) {
+                    ActivityThemPhieuNhap.vatTuPhieuNhaps.get(position).setsL(editSLVTThemPhieu.getText().toString());
+                }
+                if (ActivityPhieuNhap.clickChiTietPhieuNhap == true) {
+                    ActivityChiTietPhieuNhap.vatTuPhieuNhaps.get(position).setsL(editSLVTThemPhieu.getText().toString());
+                }
             }
         });
         editDVVTThemPhieu.addTextChangedListener(new TextWatcher() {
@@ -108,7 +114,12 @@ public class VatTuPhieuNhapAdapter extends ArrayAdapter<VatTuPhieuNhap> {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                ActivityThemPhieuNhap.vatTuPhieuNhaps.get(position).setdV(editDVVTThemPhieu.getText().toString());
+                if (ActivityPhieuNhap.clickThemChiTietPhieuNhap == true) {
+                    ActivityThemPhieuNhap.vatTuPhieuNhaps.get(position).setdV(editDVVTThemPhieu.getText().toString());
+                }
+                if (ActivityPhieuNhap.clickChiTietPhieuNhap == true) {
+                    ActivityChiTietPhieuNhap.vatTuPhieuNhaps.get(position).setdV(editDVVTThemPhieu.getText().toString());
+                }
             }
         });
         return convertView;

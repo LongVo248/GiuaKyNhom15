@@ -157,7 +157,6 @@ public class DBVatTu extends SQLiteOpenHelper {
     }
 
 
-
     public ArrayList<Kho> searchKho(String data) {
         ArrayList<Kho> khoArrayList = new ArrayList<>();
         String getAllKho = new StringBuilder().append("SELECT * FROM ").append(KHO).append(" WHERE ").append(TENKHO)
@@ -449,6 +448,39 @@ public class DBVatTu extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void suaChiTietPhieuNhap(String maPhieuNhap, VatTuPhieuNhap vatTuPhieuNhap) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(SOPHIEU, maPhieuNhap);
+        values.put(MAVT, vatTuPhieuNhap.getMaVT());
+        values.put(DVT, vatTuPhieuNhap.getdV());
+        values.put(SOLUONG, vatTuPhieuNhap.getsL());
+        db.update(
+                CHITIETPHIEUNHAP,
+                values,
+                SOPHIEU + " = ? AND " + MAVT + " = ?",
+                new String[]{maPhieuNhap, vatTuPhieuNhap.getMaVT()});
+        db.close();
+    }
+
+    public boolean checkExitOfCTPN(String maPN, String maVT) {
+        ArrayList<ChiTietPhieuNhap> chiTietPhieuNhaps = getAllChiTietPhieuNhap();
+        int check = 0;
+        for (ChiTietPhieuNhap chiTietPhieuNhap : chiTietPhieuNhaps) {
+            if (chiTietPhieuNhap.getMaPhieuNhap().equals(maPN) && chiTietPhieuNhap.getMaVatTu().equals(maVT)) {
+                check++;
+            }
+        }
+        return check == 0 ? false : true;
+    }
+
+    public void deleteChiTietPhieuNhap(String maPN, String maVT) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete(CHITIETPHIEUNHAP, SOPHIEU + " = " + "'" + maPN + "' AND " + MAVT + " = '" + maVT + "'", null);
+        db.close();
+    }
+
     public int deletePhieuNhap(String maPN) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -485,14 +517,14 @@ public class DBVatTu extends SQLiteOpenHelper {
                 maPhieuTrongKhos.add(phieuNhap.getMaPhieuNhap());
             }
         }
-        for (String maPhieu: maPhieuTrongKhos) {
-            for (ChiTietPhieuNhap chiTietPhieuNhap: allChiTietPhieuNhaps) {
-                if (chiTietPhieuNhap.getMaPhieuNhap().equals(maPhieu)){
+        for (String maPhieu : maPhieuTrongKhos) {
+            for (ChiTietPhieuNhap chiTietPhieuNhap : allChiTietPhieuNhaps) {
+                if (chiTietPhieuNhap.getMaPhieuNhap().equals(maPhieu)) {
                     chiTietPhieuNhaps.add(chiTietPhieuNhap);
                 }
             }
         }
-        for (String maPhieu: maPhieuTrongKhos) {
+        for (String maPhieu : maPhieuTrongKhos) {
 
             System.out.println("\n\n\n MaPhieu: " + maPhieu);
         }

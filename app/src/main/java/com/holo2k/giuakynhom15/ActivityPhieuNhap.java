@@ -117,6 +117,10 @@ public class ActivityPhieuNhap extends AppCompatActivity {
                 showDBPhieuNhap();
                 Toast.makeText(this, "Xoá thành công phiếu nhập", Toast.LENGTH_LONG).show();
             }
+            if (resultCode == 2){
+                showDBPhieuNhap();
+                Toast.makeText(this, "Chỉnh sửa thành công phiếu nhập", Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

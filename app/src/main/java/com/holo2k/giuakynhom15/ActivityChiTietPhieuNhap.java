@@ -35,7 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ActivityChiTietPhieuNhap extends AppCompatActivity {
-    Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap, btnThemVTPN, btnLuuPhieuChiTiet,btnXuatPDFChiTietPhieuNhap;
+    Button btnThemVTChiTietPhieuNhap, btnXoaChiTietPhieuNhap, btnThemVTPN, btnLuuPhieuChiTiet, btnXuatPDFChiTietPhieuNhap;
     TextView tvNgayNhapPhieuChiTiet, tvMaPhieuChiTiet, tvTenKhoPhieuNhapChiTiet;
     ImageView imgThoatPhieuNhapChiTiet;
     public static ListView lvDSVatTuChiTietPhieu;
@@ -47,7 +47,8 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
     public static ArrayList<VatTu> vatTus = new ArrayList<>();
     public static ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps = new ArrayList<>();
     public static ArrayList<VatTu> viTriCB = new ArrayList<>();
-    PhieuNhap phieuNhap;
+    public static PhieuNhap phieuNhap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,14 +81,24 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
         btnXoaChiTietPhieuNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dialogXoa();
             }
         });
         btnLuuPhieuChiTiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (vatTuPhieuNhaps.size() != 0 || vatTuPhieuNhaps != null) {
+                    for (VatTuPhieuNhap vatTuPhieuNhap : vatTuPhieuNhaps) {
+                        if (MainActivity.dbVatTu.checkExitOfCTPN(phieuNhap.getMaPhieuNhap(), vatTuPhieuNhap.getMaVT())) {
+                            MainActivity.dbVatTu.suaChiTietPhieuNhap(phieuNhap.getMaPhieuNhap(), vatTuPhieuNhap);
+                        } else {
+                            MainActivity.dbVatTu.themChiTietPhieuNhap(phieuNhap.getMaPhieuNhap(), vatTuPhieuNhap);
+                        }
+                    }
+                }
+                Intent intent = new Intent();
+                setResult(2, intent);
+                finish();
             }
         });
         btnXuatPDFChiTietPhieuNhap.setOnClickListener(new View.OnClickListener() {
@@ -104,69 +115,66 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
                 myPaint.setTextSize(12.0f);
                 myPaint.setColor(Color.BLACK);
                 myPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-                canvas.drawText("THÔNG TIN NHẬP KHO",myPageInfo1.getPageWidth()/2, 30,myPaint);
+                canvas.drawText("THÔNG TIN NHẬP KHO", myPageInfo1.getPageWidth() / 2, 30, myPaint);
 
                 myPaint.setTextSize(8.0f);
                 myPaint.setTextAlign(Paint.Align.LEFT);
-                canvas.drawText("Mã kho:   " + phieuNhap.getMaKho(),myPageInfo1.getPageWidth()/2-100, 50, myPaint);
-                canvas.drawText("Tên kho:   " + tvTenKhoPhieuNhapChiTiet.getText(), myPageInfo1.getPageWidth()/2, 50, myPaint);
-                canvas.drawText("Số phiếu nhập:   " + tvMaPhieuChiTiet.getText(),myPageInfo1.getPageWidth()/2-100, 70, myPaint);
-                canvas.drawText("Ngày nhập phiếu:   " + tvNgayNhapPhieuChiTiet.getText(), myPageInfo1.getPageWidth()/2-100, 90, myPaint);
-                canvas.drawLine(60,51,100,51, myPaint);
-                canvas.drawLine(160,51,230,51, myPaint);
-                canvas.drawLine(80,71,230,71, myPaint);
-                canvas.drawLine(90,91,130,91, myPaint);
+                canvas.drawText("Mã kho:   " + phieuNhap.getMaKho(), myPageInfo1.getPageWidth() / 2 - 100, 50, myPaint);
+                canvas.drawText("Tên kho:   " + tvTenKhoPhieuNhapChiTiet.getText(), myPageInfo1.getPageWidth() / 2, 50, myPaint);
+                canvas.drawText("Số phiếu nhập:   " + tvMaPhieuChiTiet.getText(), myPageInfo1.getPageWidth() / 2 - 100, 70, myPaint);
+                canvas.drawText("Ngày nhập phiếu:   " + tvNgayNhapPhieuChiTiet.getText(), myPageInfo1.getPageWidth() / 2 - 100, 90, myPaint);
+                canvas.drawLine(60, 51, 100, 51, myPaint);
+                canvas.drawLine(160, 51, 230, 51, myPaint);
+                canvas.drawLine(80, 71, 230, 71, myPaint);
+                canvas.drawLine(90, 91, 130, 91, myPaint);
 
                 myPaint.setTextAlign(Paint.Align.CENTER);
-                canvas.drawText("DANH SÁCH VẬT TƯ",myPageInfo1.getPageWidth()/2,105,myPaint);
+                canvas.drawText("DANH SÁCH VẬT TƯ", myPageInfo1.getPageWidth() / 2, 105, myPaint);
 
                 myPaint.setTextAlign(Paint.Align.LEFT);
 
                 myPaint.setTextSize(6.0f);
-                int xStart = 20, xStop = 230 , yStart = 115, yStop = 125;
-                canvas.drawLine(xStart, yStart, xStop, yStart,myPaint);
-                canvas.drawText("Mã VT", xStart+2,yStart+8,myPaint);
-                canvas.drawText("Tên Vật Tư", xStart+60,yStart+8,myPaint);
-                canvas.drawText("Đơn vị", xStart+155,yStart+8,myPaint);
-                canvas.drawText("Số lượng", xStart+184,yStart+8,myPaint);
-                canvas.drawLine(xStart,yStart,xStart,yStop, myPaint);
-                canvas.drawLine(xStart+30,yStart,xStart+30,yStop, myPaint);
-                canvas.drawLine(xStart+150,yStart,xStart+150,yStop, myPaint);
-                canvas.drawLine(xStart+180,yStart,xStart+180,yStop, myPaint);
-                canvas.drawLine(xStart+210,yStart,xStart+210,yStop, myPaint);
-                canvas.drawLine(xStart, yStop, xStop, yStop,myPaint);
+                int xStart = 20, xStop = 230, yStart = 115, yStop = 125;
+                canvas.drawLine(xStart, yStart, xStop, yStart, myPaint);
+                canvas.drawText("Mã VT", xStart + 2, yStart + 8, myPaint);
+                canvas.drawText("Tên Vật Tư", xStart + 60, yStart + 8, myPaint);
+                canvas.drawText("Đơn vị", xStart + 155, yStart + 8, myPaint);
+                canvas.drawText("Số lượng", xStart + 184, yStart + 8, myPaint);
+                canvas.drawLine(xStart, yStart, xStart, yStop, myPaint);
+                canvas.drawLine(xStart + 30, yStart, xStart + 30, yStop, myPaint);
+                canvas.drawLine(xStart + 150, yStart, xStart + 150, yStop, myPaint);
+                canvas.drawLine(xStart + 180, yStart, xStart + 180, yStop, myPaint);
+                canvas.drawLine(xStart + 210, yStart, xStart + 210, yStop, myPaint);
+                canvas.drawLine(xStart, yStop, xStop, yStop, myPaint);
 
-                for (VatTuPhieuNhap vTPN: vatTuPhieuNhaps) {
-                    yStart=yStart+10;
-                    yStop=yStop+10;
-                    canvas.drawText(vTPN.getMaVT().toString(), xStart+2,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getTenVT().toString(), xStart+60,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getdV().toString(), xStart+155,yStart+8,myPaint);
-                    canvas.drawText(vTPN.getsL().toString(), xStart+184,yStart+8,myPaint);
-                    canvas.drawLine(xStart,yStart,xStart,yStop, myPaint);
-                    canvas.drawLine(xStart+30,yStart,xStart+30,yStop, myPaint);
-                    canvas.drawLine(xStart+150,yStart,xStart+150,yStop, myPaint);
-                    canvas.drawLine(xStart+180,yStart,xStart+180,yStop, myPaint);
-                    canvas.drawLine(xStart+210,yStart,xStart+210,yStop, myPaint);
-                    canvas.drawLine(xStart, yStop, xStop, yStop,myPaint);
+                for (VatTuPhieuNhap vTPN : vatTuPhieuNhaps) {
+                    yStart = yStart + 10;
+                    yStop = yStop + 10;
+                    canvas.drawText(vTPN.getMaVT().toString(), xStart + 2, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getTenVT().toString(), xStart + 60, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getdV().toString(), xStart + 155, yStart + 8, myPaint);
+                    canvas.drawText(vTPN.getsL().toString(), xStart + 184, yStart + 8, myPaint);
+                    canvas.drawLine(xStart, yStart, xStart, yStop, myPaint);
+                    canvas.drawLine(xStart + 30, yStart, xStart + 30, yStop, myPaint);
+                    canvas.drawLine(xStart + 150, yStart, xStart + 150, yStop, myPaint);
+                    canvas.drawLine(xStart + 180, yStart, xStart + 180, yStop, myPaint);
+                    canvas.drawLine(xStart + 210, yStart, xStart + 210, yStop, myPaint);
+                    canvas.drawLine(xStart, yStop, xStop, yStop, myPaint);
                 }
-
-
 
 
                 myPdfDocument.finishPage(myPage1);
 
 
-                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),"/"+tvMaPhieuChiTiet.getText()+".pdf");
+                File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "/" + tvMaPhieuChiTiet.getText() + ".pdf");
                 try {
-                    if(file.exists()){
+                    if (file.exists()) {
                         file.delete();
                     }
                     myPdfDocument.writeTo(new FileOutputStream(file));
                     Toast toast = Toast.makeText(ActivityChiTietPhieuNhap.this, "Tao PDF thanh cong!!!", Toast.LENGTH_SHORT);
                     toast.show();
-                }catch (IOException e)
-                {
+                } catch (IOException e) {
                     Toast toast = Toast.makeText(ActivityChiTietPhieuNhap.this, "Tao PDF  khong thanh cong!!!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
@@ -205,7 +213,7 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
     }
 
     public void showXoaKhongThanhCong(int check) {
-        System.out.println("\n\n\n" + check +"\n\n\n\n");
+        System.out.println("\n\n\n" + check + "\n\n\n\n");
         if (check != 1) {
             Toast.makeText(this, "Phiếu nhập đã có trong phiếu nhập\n Không thể xoá!", Toast.LENGTH_SHORT).show();
         } else {
@@ -214,6 +222,7 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
             finish();
         }
     }
+
     public void removeVatTuTrongChonVT(ArrayList<VatTuPhieuNhap> vatTuPhieuNhaps) {
         for (VatTuPhieuNhap vatTuPhieuNhap : vatTuPhieuNhaps) {
             for (int i = 0; i < vatTus.size(); i++) {
