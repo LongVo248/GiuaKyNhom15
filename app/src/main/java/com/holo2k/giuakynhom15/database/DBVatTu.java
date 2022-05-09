@@ -371,7 +371,8 @@ public class DBVatTu extends SQLiteOpenHelper {
         String getALLPhieuNhap = new StringBuilder().append("SELECT * FROM ")
                 .append(PHIEUNHAP).append(" WHERE ").append(SOPHIEU)
                 .append(" LIKE '%").append(data).append("%' ")
-                .append("OR ").toString();
+                .toString();
+        System.out.println(getALLPhieuNhap + "\n\n\n\n\n");
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery(getALLPhieuNhap, null);

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="CHI TIẾT KHO"
+            android:text="@string/chi_ti_t_kho"
             android:paddingRight="20dp"
             android:textAlignment="center"
             android:textColor="@color/black"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
                 android:layout_marginRight="20dp"
-                android:text="Mã kho: "
+                android:text="@string/m_kho"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="90dp"
                 android:layout_marginRight="14dp"
-                android:text="Tên kho: "
+                android:text="@string/t_n_kho"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -99,7 +99,7 @@
                 android:layout_marginLeft="99dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_button"
-                android:text="Sửa" />
+                android:text="@string/s_a" />
 
             <Button
                 android:id="@+id/btnXoaKho"
@@ -108,7 +108,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/background_button_thoat"
-                android:text="Xoá" />
+                android:text="@string/xoa" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:paddingRight="20dp"
-            android:text="CHI TIẾT PHIẾU NHẬP"
+            android:text="@string/chi_ti_t_phi_u_nh_p"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="35dp" />
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Mã phiếu:"
+                android:text="@string/m_phi_u"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -68,10 +68,10 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Kho:"
+                android:text="@string/kho"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="Ngày nhập:"
+                android:text="@string/ng_y_nh_p"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
 
@@ -126,7 +126,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Danh sách vật tư"
+                android:text="@string/danh_s_ch_v_t_t"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
         </LinearLayout>
@@ -147,28 +147,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:text="Mã VT"
+                        android:text="@string/m_vt"
                         android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
-                        android:text="Tên VT"
+                        android:text="@string/t_n_vt"
                         android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
-                        android:text="Đơn vị tính"
+                        android:text="@string/n_v_t_nh"
                         android:textSize="20dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
-                        android:text="Số lượng"
+                        android:text="@string/s_l_ng"
                         android:textSize="20dp" />
                 </TableRow>
             </TableLayout>
@@ -193,13 +193,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button"
-            android:text="Xuất PDF" />
+            android:text="@string/xu_t_pdf" />
         <Button
             android:id="@+id/btnLuuPhieuChiTiet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button"
-            android:text="Lưu" />
+            android:text="@string/l_u" />
 
         <Button
             android:id="@+id/btnThemVTChiTietPhieuNhap"
@@ -207,7 +207,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:background="@drawable/background_button"
-            android:text="Thêm VT" />
+            android:text="@string/th_m_vt" />
 
         <Button
             android:id="@+id/btnXoaChiTietPhieuNhap"
@@ -215,6 +215,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:background="@drawable/background_button_thoat"
-            android:text="Xoá" />
+            android:text="@string/xoa" />
     </LinearLayout>
 </LinearLayout>

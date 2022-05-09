@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class ActivityKho extends AppCompatActivity {
     ListView lvDSKho;
-    Button btnThemKho, btnThongKeKho, btnThemKhoDialog;
+    Button btnThemKho, btnThemKhoDialog;
     ImageView imgThoatKho, imgThoatThemKho;
     ArrayList<Kho> khoArrayList = new ArrayList<>();
     KhoAdapter khoAdapter;
@@ -91,6 +91,7 @@ public class ActivityKho extends AppCompatActivity {
         khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
         lvDSKho.setAdapter(khoAdapter);
     }
+
     public void showDB() {
         khoArrayList = MainActivity.dbVatTu.getAllKho();
         khoAdapter = new KhoAdapter(this, R.layout.item_kho, khoArrayList);
@@ -100,7 +101,6 @@ public class ActivityKho extends AppCompatActivity {
     private void setControls() {
         lvDSKho = findViewById(R.id.lvDSKho);
         btnThemKho = findViewById(R.id.btnThemKho);
-        btnThongKeKho = findViewById(R.id.btnThongKeKho);
         imgThoatKho = findViewById(R.id.imgThoatKho);
         editSearch = findViewById(R.id.editSearch);
 
@@ -121,7 +121,7 @@ public class ActivityKho extends AppCompatActivity {
         btnThemKhoDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CheckError.checkEmptyEditText(editThemTenKho, txtInputThemMaKho)){
+                if (CheckError.checkEmptyEditText(editThemTenKho, txtInputThemMaKho)) {
                     Kho kho = new Kho();
                     kho.setTenKho(editThemTenKho.getText().toString());
                     MainActivity.dbVatTu.themKho(kho);
