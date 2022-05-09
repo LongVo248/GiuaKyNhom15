@@ -29,7 +29,7 @@
             android:text="DANH SÁCH VẬT TƯ"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35dp" />
+            style="@style/tieu_de" />
 
     </LinearLayout>
 
@@ -43,7 +43,8 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginLeft="80dp"
-            android:hint="Tìm kiếm theo tên vật tư" />
+            android:hint="Tìm kiếm theo tên vật tư"
+            style="@style/chu_thuong"/>
 
         <ImageView
             android:id="@+id/imageView"

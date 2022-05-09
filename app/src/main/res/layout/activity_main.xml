@@ -31,6 +31,7 @@
             android:layout_gravity="center"
             android:height="60dp"
             android:text="@string/kho"
+            style="@style/chu_thuong"
             android:id="@+id/btnKho"
             android:layout_width="300dp"
             android:layout_height="wrap_content"/>
@@ -42,6 +43,7 @@
             android:layout_gravity="center"
             android:height="60dp"
             android:text="@string/vat_tu"
+            style="@style/chu_thuong"
             android:id="@+id/btnVatTu"
             android:layout_width="300dp"
             android:layout_height="wrap_content"/>
@@ -53,6 +55,7 @@
             android:layout_gravity="center"
             android:height="60dp"
             android:text="@string/phieu_nhap"
+            style="@style/chu_thuong"
             android:id="@+id/btnPhieuNhap"
             android:layout_width="300dp"
             android:layout_height="wrap_content"/>
@@ -65,6 +68,7 @@
             android:layout_gravity="center"
             android:height="60dp"
             android:text="@string/thong_ke"
+            style="@style/chu_thuong"
             android:id="@+id/btnThongKe"
             android:layout_width="300dp"
             android:layout_height="wrap_content"/>
@@ -76,6 +80,7 @@
             android:layout_gravity="right"
             android:layout_marginRight="30dp"
             android:text="@string/thoat"
+            style="@style/chu_thuong"
             android:id="@+id/btnThoat"
             android:layout_width="100dp"
             android:layout_height="wrap_content"/>

@@ -29,7 +29,7 @@
             android:text="@string/danh_s_ch_v_t_t"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35dp" />
+            style="@style/tieu_de" />
 
     </LinearLayout>
 
@@ -43,7 +43,8 @@
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:layout_marginLeft="80dp"
-            android:hint="@string/t_m_ki_m_theo_t_n_v_t_t" />
+            android:hint="@string/t_m_ki_m_theo_t_n_v_t_t"
+            style="@style/chu_thuong"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -61,7 +62,8 @@
         <ListView
             android:id="@+id/lvDSChonVatTu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            style="@style/chu_thuong"/>
     </LinearLayout>
 
     <LinearLayout

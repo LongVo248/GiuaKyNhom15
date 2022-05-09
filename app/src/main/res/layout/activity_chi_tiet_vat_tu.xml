@@ -27,7 +27,7 @@
             android:paddingRight="20dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35dp"
+            style="@style/tieu_de"
             android:background="#AEFFF5"/>
 
     </LinearLayout>
@@ -55,7 +55,7 @@
                 android:layout_marginRight="20dp"
                 android:text="@string/m_v_t_t"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <TextView
                 android:id="@+id/tvMaVatTuChiTiet"
@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
         </LinearLayout>
 
@@ -78,7 +78,7 @@
                 android:layout_marginRight="14dp"
                 android:text="@string/t_n_v_t_t"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <EditText
                 android:id="@+id/editTenVatTuChiTiet"
@@ -87,7 +87,7 @@
                 android:editable="true"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                style="@style/chu_thuong"
                 tools:ignore="Deprecated" />
 
         </LinearLayout>
@@ -103,7 +103,7 @@
                 android:layout_marginRight="14dp"
                 android:text="@string/xu_t_x"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <EditText
                 android:id="@+id/editXuatXuChiTiet"
@@ -112,7 +112,7 @@
                 android:editable="true"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp"
+                style="@style/chu_thuong"
                 tools:ignore="Deprecated" />
 
         </LinearLayout>

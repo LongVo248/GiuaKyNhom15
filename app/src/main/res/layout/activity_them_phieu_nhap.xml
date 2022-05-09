@@ -27,7 +27,7 @@
             android:text="THÊM PHIẾU NHẬP"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35dp" />
+            style="@style/tieu_de" />
 
     </LinearLayout>
 
@@ -50,7 +50,7 @@
                 android:layout_marginRight="20dp"
                 android:text="Mã phiếu:"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <TextView
                 android:id="@+id/tvMaPhieuChiTiet"
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
         </LinearLayout>
 
@@ -75,7 +75,7 @@
                 android:paddingTop="7dp"
                 android:text="Kho:"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <Spinner
                 android:id="@+id/spKho"
@@ -99,7 +99,7 @@
                 android:layout_marginRight="20dp"
                 android:text="Ngày nhập:"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <TextView
                 android:id="@+id/tvNgayNhapPhieuChiTiet"
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <ImageView
                 android:id="@+id/imgCalendar"
@@ -136,6 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Danh sách vật tư"
+                style="@style/chu_thuong"
                 android:textColor="@color/black"
                 android:textSize="25dp" />
         </LinearLayout>

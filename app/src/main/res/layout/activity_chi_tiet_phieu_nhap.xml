@@ -24,9 +24,10 @@
             android:fontFamily="sans-serif-medium"
             android:paddingRight="20dp"
             android:text="@string/chi_ti_t_phi_u_nh_p"
+            style="@style/tieu_de"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35dp" />
+             />
 
     </LinearLayout>
 
@@ -49,7 +50,7 @@
                 android:layout_marginRight="20dp"
                 android:text="@string/m_phi_u"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <TextView
                 android:id="@+id/tvMaPhieuChiTiet"
@@ -57,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
         </LinearLayout>
 
@@ -73,7 +74,7 @@
                 android:layout_marginRight="20dp"
                 android:text="@string/kho"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
             <TextView
                 android:id="@+id/tvTenKhoPhieuNhapChiTiet"
@@ -82,7 +83,7 @@
                 android:layout_weight="1"
                 android:text=""
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
 
         </LinearLayout>
 
@@ -99,7 +100,7 @@
                 android:layout_marginRight="20dp"
                 android:text="@string/ng_y_nh_p"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong"/>
 
             <TextView
                 android:id="@+id/tvNgayNhapPhieuChiTiet"
@@ -107,7 +108,7 @@
                 android:layout_height="wrap_content"
                 android:text="DB0001"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                style="@style/chu_thuong" />
         </LinearLayout>
 
     </LinearLayout>
@@ -148,28 +149,27 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:text="@string/m_vt"
-                        android:textSize="20dp" />
+                        style="@style/chu_thuong" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
                         android:text="@string/t_n_vt"
-                        android:textSize="20dp" />
-
+                        style="@style/chu_thuong"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
                         android:text="@string/n_v_t_nh"
-                        android:textSize="20dp" />
+                        style="@style/chu_thuong"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="30dp"
                         android:text="@string/s_l_ng"
-                        android:textSize="20dp" />
+                        style="@style/chu_thuong"/>
                 </TableRow>
             </TableLayout>
         </LinearLayout>
@@ -178,7 +178,8 @@
             android:id="@+id/lvDSVatTuChiTietPhieu"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:background="#A7FFE0" />
+            android:background="#A7FFE0"
+            style="@style/chu_thuong"/>
     </LinearLayout>
 
     <LinearLayout
@@ -193,7 +194,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_button"
-            android:text="@string/xu_t_pdf" />
+            android:text="@string/xu_t_pdf"
+            />
         <Button
             android:id="@+id/btnLuuPhieuChiTiet"
             android:layout_width="wrap_content"

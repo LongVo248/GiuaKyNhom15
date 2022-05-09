@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/dialog_them_vat_tu"
+        style="@style/chu_thuong"
         android:textColor="@color/black"
         android:textSize="30sp" />
 
@@ -47,7 +48,9 @@
                     android:id="@+id/editThemMaVatTu"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:hint="Nhập mã vật tư" />
+                    android:hint="Nhập mã vật tư"
+                    style="@style/chu_thuong"
+                    android:textSize="17dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -66,7 +69,9 @@
                     android:id="@+id/editThemTenVatTu"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:hint="Nhập tên vật tư" />
+                    android:hint="Nhập tên vật tư"
+                    style="@style/chu_thuong"
+                    android:textSize="17dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -85,7 +90,9 @@
                     android:id="@+id/editThemXuatXu"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:hint="Nhập xuất xứ" />
+                    android:hint="Nhập xuất xứ"
+                    style="@style/chu_thuong"
+                    android:textSize="17dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
