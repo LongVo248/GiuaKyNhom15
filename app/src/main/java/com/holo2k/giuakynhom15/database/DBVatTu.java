@@ -226,7 +226,7 @@ public class DBVatTu extends SQLiteOpenHelper {
             values.put(MAVT, vatTu.getMaVatTu());
             values.put(TENVT, vatTu.getTenVatTu());
             values.put(XUATXU, vatTu.getXuatXu());
-            db.update(VATTU, values, MAVT + "=" + String.valueOf(vatTu.getMaVatTu()), null);
+            db.update(VATTU, values, MAVT + "='" + vatTu.getMaVatTu() +"'", null);
             return true;
         } else {
             return false;
