@@ -213,7 +213,6 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
     }
 
     public void showXoaKhongThanhCong(int check) {
-        System.out.println("\n\n\n" + check + "\n\n\n\n");
         if (check != 1) {
             Toast.makeText(this, "Phiếu nhập đã có trong phiếu nhập\n Không thể xoá!", Toast.LENGTH_SHORT).show();
         } else {
@@ -227,7 +226,6 @@ public class ActivityChiTietPhieuNhap extends AppCompatActivity {
         for (VatTuPhieuNhap vatTuPhieuNhap : vatTuPhieuNhaps) {
             for (int i = 0; i < vatTus.size(); i++) {
                 if (vatTuPhieuNhap.getMaVT().equals(vatTus.get(i).getMaVatTu())) {
-                    System.out.println("\n\n\n\n\n\n\n\n Mã VTPN: " + vatTuPhieuNhap.getMaVT() + "\n\n\n\n\n Mã VT: " + vatTus.get(i).getMaVatTu());
                     vatTus.remove(vatTus.get(i));
                 }
             }

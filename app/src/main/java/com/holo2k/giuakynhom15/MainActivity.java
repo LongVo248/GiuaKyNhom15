@@ -9,6 +9,8 @@ import android.database.CursorWindow;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +24,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnKho, btnVatTu, btnPhieuNhap, btnTimKiem, btnThongKe, btnThoat;
+    Button btnKho, btnVatTu, btnPhieuNhap, btnThongKe, btnThoat;
     public static DBVatTu dbVatTu;
 
     @Override
@@ -87,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
     private void DialogExit() {
         Dialog dialog= new Dialog(this);
         dialog.setContentView(R.layout.dialog_thoat);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         //tắt click ngoài là thoát
         dialog.setCanceledOnTouchOutside(false);
@@ -121,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         btnKho= findViewById(R.id.btnKho);
         btnVatTu= findViewById(R.id.btnVatTu);
         btnPhieuNhap= findViewById(R.id.btnPhieuNhap);
-        btnTimKiem= findViewById(R.id.btnTimKiem);
         btnThongKe= findViewById(R.id.btnThongKe);
         btnThoat= findViewById(R.id.btnThoat);
     }

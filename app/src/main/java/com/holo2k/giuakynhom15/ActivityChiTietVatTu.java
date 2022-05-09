@@ -59,7 +59,6 @@ public class ActivityChiTietVatTu extends AppCompatActivity {
     }
 
     public void showXoaKhongThanhCong(boolean check) {
-        System.out.println("\n\n\n" + check +"\n\n\n\n");
         if (check == false) {
             Toast.makeText(this, "Kho đã có trong phiếu nhập\n Không thể xoá!", Toast.LENGTH_SHORT).show();
         } else {

@@ -127,7 +127,6 @@ public class ActivityVatTu extends AppCompatActivity {
         editThemMaVatTu = dialog.findViewById(R.id.editThemMaVatTu);
         editThemTenVatTu = dialog.findViewById(R.id.editThemTenVatTu);
         editThemXuatXu = dialog.findViewById(R.id.editThemXuatXu);
-        imgShowCamera = dialog.findViewById(R.id.img_show_camera);
         imgShowFolder = dialog.findViewById(R.id.img_show_folder);
         imgHinhVatTu = dialog.findViewById(R.id.img_hinh_vat_tu);
         editThemMaVatTu.addTextChangedListener(new TextWatcher() {
@@ -148,14 +147,6 @@ public class ActivityVatTu extends AppCompatActivity {
                 } else {
                     txtInputThemMaVT.setError(null);
                 }
-            }
-        });
-        imgShowCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.cancel();
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CODE_CAMERA);
             }
         });
         imgShowFolder.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +259,6 @@ public class ActivityVatTu extends AppCompatActivity {
                 if (data != null) {
                     uriAnhVT = new StringBuilder().append("/storage/emulated/0/").append(data.getData().getPath().substring("/document/primary:".length())).toString();
 
-                    System.out.println("\n\n\n\n" + uriAnhVT + "\n\n\n");
                     File file = new File(uriAnhVT);
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                     imgHinhVatTu.setImageBitmap(bitmap);

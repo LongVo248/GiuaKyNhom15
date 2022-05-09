@@ -186,7 +186,7 @@ public class DBVatTu extends SQLiteOpenHelper {
         //false khong tim thay
 
         String getAllKho = "SELECT * FROM " + PHIEUNHAP + " WHERE MAKHO = " + String.valueOf(maKho);
-        System.out.println(getAllKho);
+
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(getAllKho, null);
         return cursor.getCount() == 0 ? false : true;
@@ -282,10 +282,8 @@ public class DBVatTu extends SQLiteOpenHelper {
         //false khong tim thay
 
         String getAllVatTu = "SELECT * FROM " + CHITIETPHIEUNHAP + " WHERE MAVT = " + "'" + maVatTu + "'";
-        System.out.println(getAllVatTu);
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(getAllVatTu, null);
-        System.out.println("\n\n\n\n" + cursor.getCount() + "\n\n\n\n");
         return cursor.getCount() == 0 ? false : true;
     }
 
@@ -293,7 +291,6 @@ public class DBVatTu extends SQLiteOpenHelper {
         //chú ý : getWritableDatabase là cả đọc và ghi
         if (!checkMaVatTuTrongPhieuNhap(id)) {
             SQLiteDatabase db = this.getWritableDatabase();
-            System.out.println("\n\n\n\n DA XOAAAAAAAAAAA \n\n\n\n");
             db.delete(VATTU, MAVT + " = " + "'" + id + "'", null);
             return true;
         } else {
@@ -372,7 +369,6 @@ public class DBVatTu extends SQLiteOpenHelper {
                 .append(PHIEUNHAP).append(" WHERE ").append(SOPHIEU)
                 .append(" LIKE '%").append(data).append("%' ")
                 .toString();
-        System.out.println(getALLPhieuNhap + "\n\n\n\n\n");
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery(getALLPhieuNhap, null);
@@ -524,10 +520,6 @@ public class DBVatTu extends SQLiteOpenHelper {
                     chiTietPhieuNhaps.add(chiTietPhieuNhap);
                 }
             }
-        }
-        for (String maPhieu : maPhieuTrongKhos) {
-
-            System.out.println("\n\n\n MaPhieu: " + maPhieu);
         }
         return chiTietPhieuNhaps;
     }
